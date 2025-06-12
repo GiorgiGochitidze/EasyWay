@@ -12,7 +12,7 @@ export default function AboutCard() {
             <button className="buy-button">პაკეტის შეძენა</button>
           </div>
         </div>
-        <div className="packet">
+        <div className="packet packet-expensive">
           <div className="shape2">180₾</div>
           <h3 className="card-type">BLACK GOLD</h3>
           <div className="button-div">
