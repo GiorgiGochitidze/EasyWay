@@ -9,7 +9,11 @@ import Close from "../../assets/icon-close.svg";
 const navigation: navigation[] = [
   {
     nav: "მთავარი",
+<<<<<<< becomeApartner
+    route: "/",
+=======
     route: "/main",
+>>>>>>> integration
   },
   {
     nav: "ბარათის შესახებ",
@@ -88,18 +92,33 @@ const Navbar = () => {
               initial={{ opacity: 0, y: -100 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -100 }}
+<<<<<<< becomeApartner
+              transition={{ duration: 0.15 }}
+            >
+=======
               transition={{ duration: 0.15 }}>
+>>>>>>> integration
               <motion.nav
                 initial={{ opacity: 0, y: -100 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -100 }}
+<<<<<<< becomeApartner
+                transition={{ duration: 0.2 }}
+              >
+=======
                 transition={{ duration: 0.2 }}>
+>>>>>>> integration
                 <ul className="routes-list">
                   {navigation.map((item, index) => (
                     <li
                       key={index}
                       className="routes"
+<<<<<<< becomeApartner
+                      onClick={() => setDisplayMenu(false)}
+                    >
+=======
                       onClick={() => setDisplayMenu(false)}>
+>>>>>>> integration
                       <Link style={{ all: "unset" }} to={item.route}>
                         {item.nav}
                       </Link>
