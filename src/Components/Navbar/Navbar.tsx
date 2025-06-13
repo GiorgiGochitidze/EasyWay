@@ -10,6 +10,8 @@ const navigation: navigation[] = [
   {
     nav: "მთავარი",
     route: "/main",
+    route: "/",
+
   },
   {
     nav: "ბარათის შესახებ",
@@ -88,18 +90,28 @@ const Navbar = () => {
               initial={{ opacity: 0, y: -100 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -100 }}
+
               transition={{ duration: 0.15 }}>
+
+              transition={{ duration: 0.15 }}
               <motion.nav
                 initial={{ opacity: 0, y: -100 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -100 }}
+
+                transition={{ duration: 0.2 }}>
+
                 transition={{ duration: 0.2 }}>
                 <ul className="routes-list">
                   {navigation.map((item, index) => (
                     <li
                       key={index}
                       className="routes"
+
                       onClick={() => setDisplayMenu(false)}>
+
+                      onClick={() => setDisplayMenu(false)}>
+
                       <Link style={{ all: "unset" }} to={item.route}>
                         {item.nav}
                       </Link>
