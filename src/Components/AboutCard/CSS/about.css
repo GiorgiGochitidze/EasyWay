@@ -1,0 +1,164 @@
+.container {
+  background: linear-gradient(
+      rgba(215, 255, 249, 0.21),
+      rgba(215, 255, 249, 0.21)
+    ),
+    url(https://static.rfstat.com/renderforest/images/website_maker_images/components/component-images/pricing7-1.0.0.jpeg);
+  padding: 40px 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  min-height: 100vh;
+}
+
+.title {
+  text-align: center;
+  font-size: 25px;
+  color: rgb(18, 28, 61);
+}
+
+.shape,
+.shape2 {
+  width: 178px;
+  min-height: 150px;
+  margin: 0px auto;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 20px 70px;
+  clip-path: polygon(
+    0px 1px,
+    100% 1px,
+    100% calc(100% - 51px),
+    89px calc(100% - 1px),
+    0px calc(100% - 51px)
+  );
+  background: rgb(255, 255, 255);
+  transform: translateY(-13px);
+  font-size: 23px;
+  font-weight: bold;
+  border: 1px solid rgba(18, 28, 61, 0.2);
+}
+
+.shape2 {
+  background: linear-gradient(rgb(111, 128, 188), rgb(51, 66, 121));
+  color: white;
+}
+
+.packets-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 45px;
+}
+
+.packet {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 35px;
+  max-width: 348px;
+  width: 100%;
+  background: rgba(215, 255, 249, 0.4);
+  backdrop-filter: blur(15px);
+  border-radius: 15px;
+  border: 1px solid rgba(18, 28, 61, 0.2);
+}
+
+.card-type {
+  font-size: 23px;
+  color: rgb(18, 28, 61);
+}
+
+.button-div {
+  padding: 25px 0px;
+  background-color: white;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  border-top: 1px solid rgba(18, 28, 61, 0.08);
+}
+
+.buy-button,
+.buy-button2 {
+  color: white;
+  width: 80%;
+  border: none;
+  background-image: linear-gradient(
+    -180deg,
+    rgb(128, 235, 218) 0%,
+    rgb(42, 166, 148) 96%
+  );
+  padding: 10px 40px;
+  border-radius: 50px;
+  font-size: 14px;
+  box-shadow: rgba(42, 166, 148, 0.5) 0px 4px 10px 0px;
+  cursor: pointer;
+}
+
+.buy-button2 {
+  background-image: linear-gradient(
+    -180deg,
+    rgb(111, 128, 188) 0%,
+    rgb(51, 66, 121) 96%
+  );
+  box-shadow: rgba(51, 66, 121, 0.5) 0px 4px 10px 0px;
+}
+
+.buy-button:hover {
+  background-color: rgb(128, 235, 218);
+  background-image: none;
+}
+
+.buy-button2:hover {
+  background-color: rgb(111, 128, 188);
+  background-image: none;
+}
+
+@media only screen and (min-width: 1000px) {
+  .container {
+    justify-content: center;
+    background: linear-gradient(
+        rgba(215, 255, 249, 0.21),
+        rgba(215, 255, 249, 0.21)
+      ),
+      url("https://static.rfstat.com/renderforest/images/website_maker_images/components/component-images/pricing7-1.0.0.jpeg")
+        center center / cover no-repeat;
+    gap: 100px;
+  }
+
+  .packets-container {
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .title {
+    font-size: 40px;
+  }
+
+  .packet-expensive {
+    transform: scale(1.13);
+  }
+
+  .card-type {
+    font-size: 31px;
+  }
+
+  .shape,
+  .shape2 {
+    font-size: 31px;
+  }
+
+  .button-div {
+    padding: 45px 0;
+  }
+
+  .buy-button,
+  .buy-button2 {
+    font-size: 15px;
+  }
+}
