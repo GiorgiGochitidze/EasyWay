@@ -1,0 +1,196 @@
+.becomeAPartner {
+  background: linear-gradient(rgba(215, 255, 249, 0), rgba(215, 255, 249, 0)),
+    url("https://static.rfstat.com/renderforest/images/website_maker_images/components/component-images/contact14-1.0.0.jpg")
+      center center / cover no-repeat;
+  min-height: 100vh;
+}
+
+.wholeBox {
+  display: flex;
+  justify-content: space-around;
+}
+.becomeAPartner .h1 {
+  padding-top: 120px;
+  color: #121c3d;
+  font-size: 2.5rem;
+  text-align: center;
+}
+
+.contact {
+  margin-top: 60px;
+  color: #121c3d;
+}
+
+.svg {
+  margin-top: 24.4px;
+  width: 36px;
+  height: 36px;
+  margin-right: -2px;
+}
+
+.line {
+  display: flex;
+  text-align: center;
+}
+.contact h2 {
+  font-size: 19.5px;
+  font-weight: 700;
+  margin-top: 25px;
+}
+
+.contact p {
+  margin-top: 25px;
+  font-size: 17.5px;
+  font-weight: 300;
+}
+
+.contact .miniText {
+  margin-left: 65px;
+}
+
+.miniText {
+  margin-top: 10px;
+  font-size: 18px;
+  font-weight: 300;
+}
+.inputBox {
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+}
+
+.inputWrapper {
+  position: relative;
+  width: 100%;
+}
+
+.star {
+  position: absolute;
+  top: 70%;
+  right: 22px;
+  transform: translateY(-50%);
+  font-size: 25px;
+  font-weight: 500;
+  pointer-events: none;
+  width: 16px;
+}
+.infoInput {
+  height: 50px;
+  margin-top: 20px;
+  border-radius: 50px;
+  position: relative;
+}
+.inpu {
+  width: 488px;
+  color: rgb(18, 28, 61);
+  font-size: 16px;
+  font-family: Montserrat;
+  font-weight: 300;
+  padding: 0px 45px 0px 25px;
+  border-style: none;
+  border: 1px solid #b7bac4;
+}
+
+.infodescription {
+  min-height: 200px;
+  margin-top: 20px;
+  border-radius: 25px;
+  align-items: start;
+  resize: none;
+  box-sizing: border-box;
+  vertical-align: top;
+  padding-top: 15px;
+}
+.send {
+  align-self: flex-start;
+  max-width: 300px;
+  border: none;
+  border-radius: 50px;
+  white-space: nowrap;
+  color: rgb(255, 255, 255);
+  background: linear-gradient(
+      -180deg,
+      rgb(111, 128, 188) 0%,
+      rgb(51, 66, 121) 96%
+    )
+    no-repeat;
+  box-shadow: rgba(51, 66, 121, 0.5) 0px 4px 10px 0px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  height: 50px;
+  line-height: 50px;
+  box-sizing: border-box;
+  text-decoration: none;
+  padding: 0px 40px;
+  font-size: 14px;
+  letter-spacing: 0.4px;
+  cursor: pointer;
+  position: relative;
+  z-index: 1;
+  word-break: initial;
+  outline: none;
+  margin-top: 25px;
+}
+.send:hover {
+  background-image: none;
+  background-color: #8190cd;
+  color: #ffffff;
+}
+
+.inpu:focus {
+  outline: none;
+  border: 0.5px solid #121c3d;
+}
+
+.errorMessage {
+  display: flex;
+  height: 20px;
+  align-self: flex-start;
+  align-items: center;
+  gap: 8px;
+  color: #eb0c00;
+  font-size: 14px;
+  margin-top: 8px;
+  margin-left: 8px;
+}
+
+.redLine {
+  border-style: none;
+  border: 1px solid #de1111;
+}
+
+.errorImage {
+  width: 16px;
+  height: 16px;
+}
+
+@media only screen and (max-width: 1024px) {
+  .wholeBox {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .contact {
+    max-width: 500px;
+    text-align: left;
+  }
+  .svg {
+    font-size: 100px;
+  }
+  .inpu {
+    width: 418px;
+  }
+  .inputBox {
+    text-align: left;
+    margin-top: 20px;
+  }
+  .contact .miniText {
+    margin-left: 0 !important;
+  }
+  .miniText {
+    text-align: center;
+    font-size: 14px;
+    margin-top: 20px;
+  }
+}
