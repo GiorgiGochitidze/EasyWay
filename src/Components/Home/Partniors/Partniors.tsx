@@ -1,10 +1,8 @@
-// Partniors.tsx
-
 import React from "react";
 import Slider from "react-slick";
-import "./Partniors.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import "./Partniors.css";
 
 interface Partner {
   id: number;
