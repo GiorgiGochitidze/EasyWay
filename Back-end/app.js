@@ -38,15 +38,15 @@ const url = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster
 app.use('/register', registerRouter)
 app.use('/login', loginRouter)
 
-app.use('/discount', createDiscountRouter)
-app.use('/discounts', getDiscountRouter)
-app.use('/discount', updateDiscountRouter)
-app.use('/discount', deleteDiscountRouter)
+app.use('/createDiscount', createDiscountRouter)
+app.use('/showDiscounts', getDiscountRouter)
+app.use('/uptDiscount', updateDiscountRouter)
+app.use('/delDiscount', deleteDiscountRouter)
 
-app.use('/partner', addPartnerRouter)
-app.use('/partners', getPartnersRouter)
-app.use('/partner', updatePartnerRouter)
-app.use('/partner', deletePartnerRouter)
+app.use('/addPartner', addPartnerRouter)
+app.use('/showPartners', getPartnersRouter)
+app.use('/uptPartner', updatePartnerRouter)
+app.use('/delPartner', deletePartnerRouter)
 
 
 
