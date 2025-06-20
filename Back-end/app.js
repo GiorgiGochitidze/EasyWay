@@ -7,13 +7,16 @@ import mongoose from 'mongoose'
 
 import { registerRouter } from './Routes/auth-route.js'
 import { loginRouter } from './Routes/auth-route.js'
-// import { createDiscountRouter } from './Routes/discount-route.js'
-// import { getDiscountRouter } from './Routes/discount-route.js'
-// import { updateDiscountRouter } from './Routes/discount-route.js'
-// import { deleteDiscountRouter } from './Routes/discount-route.js'
 
-// partner
-// import partnersRouter  from './Routes/partners-route.js'
+import { createDiscountRouter } from './Routes/discount-route.js'
+import { getDiscountRouter } from './Routes/discount-route.js'
+import { updateDiscountRouter } from './Routes/discount-route.js'
+import { deleteDiscountRouter } from './Routes/discount-route.js'
+
+import { addPartnerRouter }  from './Routes/partners-route.js'
+import { getPartnersRouter } from './Routes/partners-route.js'
+import { updatePartnerRouter } from './Routes/partners-route.js'
+import { deletePartnerRouter } from './Routes/partners-route.js'
 
 dotenv.config()
 
@@ -34,11 +37,16 @@ const url = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster
 
 app.use('/register', registerRouter)
 app.use('/login', loginRouter)
-// app.use('/discount', createDiscountRouter)
-// app.use('/discounts', getDiscountRouter)
-// app.use('/discount', updateDiscountRouter)
-// app.use('/discount', deleteDiscountRouter)
-// app.use('/partner', partnersRouter)
+
+app.use('/discount', createDiscountRouter)
+app.use('/discounts', getDiscountRouter)
+app.use('/discount', updateDiscountRouter)
+app.use('/discount', deleteDiscountRouter)
+
+app.use('/partner', addPartnerRouter)
+app.use('/partners', getPartnersRouter)
+app.use('/partner', updatePartnerRouter)
+app.use('/partner', deletePartnerRouter)
 
 
 
@@ -54,4 +62,3 @@ app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`)
 })
 
-// export default app

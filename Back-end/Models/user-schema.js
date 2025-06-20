@@ -1,43 +1,41 @@
-import mongoose from "mongoose"
+import mongoose from 'mongoose'
 
 const userSchema = new mongoose.Schema({
-    username: {
-        type: String,
-        required: true,
-        unique: true,
-        trim: true,
-    },
-    email: {
-        type: String,
-        required: true,
-        unique: true,
-        trim: true,
-        validate: {
-            validator: function (v) {
-                return /^.+@.+\..+$/.test(v)
-            },
-            message: props => `${props.value} is not a valid email!`
-        }
-    },
-    password: {
-        type: String,
-        required: true,
-    },
-    rememberMe: {
-        type: Boolean,
-        default: false
-
-    },
-    cardInfo: {
-        cardNumber: String,
-        expiryDate: String,
-        cvv: String
-    },
-    createdAt: {
-        type: Date,
-        default: Date.now,
-    },
+  username: {
+    type: String,
+    required: true,
+    unique: true,
+    trim: true
+  },
+  email: {
+    type: String,
+    required: true,
+    unique: true,
+    trim: true,
+    validate: {
+      validator: v => /^.+@.+\..+$/.test(v),
+      message: props => `${props.value} is not a valid email!`
+    }
+  },
+  password: {
+    type: String,
+    required: true
+  },
+  package: {
+    type: String,
+    enum: ['PREMIUM', 'ELITE ENTRY', 'BLACK GOLD'],
+    required: true
+  },
+  cards: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Card'
+  }],
+  createdAt: {
+    type: Date,
+    default: Date.now
+  }
 })
 
-export const User = mongoose.model("Users", userSchema)
+const User = mongoose.model('Users', userSchema)
+
 export default User
