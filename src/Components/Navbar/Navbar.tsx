@@ -39,7 +39,12 @@ const Navbar = () => {
               initial={{ opacity: 0, rotate: 0 }}
               animate={{ opacity: 1, rotate: 90 }}
               exit={{ opacity: 0, rotate: 0 }}
-              transition={{ duration: 0.2 }}
+              transition={{
+                type: "spring",
+                stiffness: 400,
+                damping: 13,
+                duration: 0.2,
+              }}
               className="close-button"
               alt="close icon"
               onClick={() => setDisplayMenu(false)}
@@ -85,13 +90,13 @@ const Navbar = () => {
             <motion.div
               className="hamburger-menu"
               ref={menuRef}
-              initial={{ opacity: 0, y: -100 }}
+              initial={{ opacity: 1, y: -300 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -100 }}
               transition={{ duration: 0.15 }}
             >
               <motion.nav
-                initial={{ opacity: 0, y: -100 }}
+                initial={{ opacity: 1, y: -100 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -100 }}
                 transition={{ duration: 0.2 }}
