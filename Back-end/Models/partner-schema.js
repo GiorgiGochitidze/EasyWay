@@ -15,6 +15,14 @@ const partnerSchema = new mongoose.Schema({
         message: props => `${props.value} is not a valid email!`
     }  
   },
+  photos: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Photo', 
+    required: true
+  }],
+  telephoneNumber: {
+    type: String
+  },
   address: {
     street: String,
     city: String,
