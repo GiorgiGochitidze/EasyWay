@@ -113,31 +113,37 @@
 .waves {
   position: absolute;
   bottom: 0;
-  width: 200%;
-  height: 300px;
-  left: 0;
-  overflow-x: hidden;
+  width: 3600px;
+  height: 200px;
+  overflow: hidden;
+}
+
+.waveGroup {
+  animation: moveWaves 10s linear infinite;
 }
 
 .parallax > use {
-  animation: moveWaves 10s linear infinite;
+  animation: moveWaves 5s linear infinite;
   transform: translateX(0);
   fill: #43518c;
 }
 
-.parallax > use:nth-child(2) {
-  animation-delay: -2s;
-  opacity: 0.6;
+.waveGroup.front use {
+  fill: #3a4c86;
+  animation-delay: 0s;
+  animation-duration: 15s;
 }
-
-.parallax > use:nth-child(3) {
-  animation-delay: -4s;
-  opacity: 0.4;
+.waveGroup.middle use {
+  fill: #3a4c86;
+  animation-delay: -5s;
+  animation-duration: 15s;
+  opacity: 0.5;
 }
-
-.parallax > use:nth-child(4) {
-  animation-delay: -6s;
-  opacity: 0.2;
+.waveGroup.back use {
+  animation-delay: -10s;
+  animation-duration: 15s;
+  fill: #3a4c86;
+  opacity: 0.3;
 }
 
 @keyframes moveWaves {
@@ -145,6 +151,6 @@
     transform: translateX(0);
   }
   100% {
-    transform: translateX(-50%);
+    transform: translateX(-1200px); /* Shift by one full wave */
   }
 }

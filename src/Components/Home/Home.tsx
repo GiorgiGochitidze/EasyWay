@@ -42,23 +42,35 @@ const Home = () => {
       <div className="wave-container">
         <svg
           className="waves"
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 24 150 28"
+          viewBox="0 0 1200 200"
           preserveAspectRatio="none"
-          shape-rendering="auto"
         >
           <defs>
             <path
-              id="gentle-wave"
-              d="M-160 44c30 0 58-18 88-18s 
-      58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z"
+              id="wavePath"
+              d="M0,100 C300,200 900,0 1200,100 L1200,200 L0,200 Z"
             />
           </defs>
-          <g className="parallax">
-            <use href="#gentle-wave" x="50" y="0" />
-            <use href="#gentle-wave" x="50" y="2" />
-            <use href="#gentle-wave" x="50" y="4" />
-            <use href="#gentle-wave" x="50" y="6" />
+
+          {/* Back (higher) */}
+          <g className="waveGroup back">
+            <use href="#wavePath" x="0" y="0" />
+            <use href="#wavePath" x="1200" y="0" />
+            <use href="#wavePath" x="2400" y="0" />
+          </g>
+
+          {/* Middle */}
+          <g className="waveGroup middle">
+            <use href="#wavePath" x="0" y="20" />
+            <use href="#wavePath" x="1200" y="20" />
+            <use href="#wavePath" x="2400" y="20" />
+          </g>
+
+          {/* Front (lowest) */}
+          <g className="waveGroup front">
+            <use href="#wavePath" x="0" y="40" />
+            <use href="#wavePath" x="1200" y="40" />
+            <use href="#wavePath" x="2400" y="40" />
           </g>
         </svg>
       </div>
