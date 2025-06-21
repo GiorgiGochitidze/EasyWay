@@ -16,6 +16,12 @@ addPartnerRouter.post(
     body('contactEmail')
       .notEmpty()
       .withMessage('Contact email is required'),
+    body('photos')
+      .notEmpty()
+      .withMessage('Photos is required'),
+    body('telephoneNumber')
+      .notEmpty()
+      .withMessage('Number is required'),    
     body('address').custom(value => {
       if (
         !value ||
