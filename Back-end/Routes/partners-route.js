@@ -28,7 +28,7 @@ addPartnerRouter.post(
         typeof value !== 'object' ||
         !value.street?.trim() ||
         !value.city?.trim() ||
-        !value.state?.trim() ||
+        !value.region?.trim() ||
         !value.postalCode?.trim()
       ) {
         throw new Error('All address fields are required and cannot be empty')
