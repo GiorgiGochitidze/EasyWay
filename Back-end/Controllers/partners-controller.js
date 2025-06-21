@@ -1,5 +1,4 @@
 import { Partner } from '../Models/partner-schema.js'
-import { Photo } from '../Models/photo-schema.js'
 import { validationResult } from 'express-validator'
 
 // add
@@ -26,16 +25,10 @@ export const addPartner = async (req, res) => {
       })
     }
 
-    const photoIds = []
-    for (const photoData of photos) {
-      const createdPhoto = await Photo.create(photoData)
-      photoIds.push(createdPhoto._id)
-    }
-
     const newPartner = new Partner({
       name,
       contactEmail,
-      photos: photoIds,
+      photos,
       telephoneNumber,
       address
     })
