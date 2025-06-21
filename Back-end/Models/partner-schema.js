@@ -16,17 +16,17 @@ const partnerSchema = new mongoose.Schema({
     }  
   },
   photos: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Photo', 
+    type: String,
     required: true
   }],
   telephoneNumber: {
-    type: String
+    type: String,
+    required: true
   },
   address: {
     street: String,
     city: String,
-    state: String,
+    region: String,
     postalCode: String
   },
   createdAt: {
