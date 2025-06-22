@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 const navigation: navigation[] = [
   {
     nav: "მთავარი",
-    route: "/main",
+    route: "/",
   },
   {
     nav: "ბარათის შესახებ",
@@ -24,6 +24,7 @@ const navigation: navigation[] = [
 ];
 
 const Navbar = () => {
+
   return (
     <>
       <header>

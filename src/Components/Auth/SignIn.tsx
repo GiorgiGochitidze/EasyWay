@@ -1,0 +1,55 @@
+import Form from "./Form";
+import "./CSS/Auth.css";
+import axios from "axios";
+import Cookie from "js-cookie";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
+type FormDataTypes = {
+  userName: string;
+  email: string;
+  password: string;
+};
+
+const SignIn = () => {
+  const [msg, setMsg] = useState<string>("");
+  const navigate = useNavigate();
+
+  const handleSignIn = ({ email, password }: FormDataTypes) => {
+    if (!email || !password) {
+      return console.log("გთხოვთ შეავსოთ ყველა ველი");
+    }
+
+    axios
+      .post("http://localhost:5000/signin", {
+        email: email,
+        password: password,
+      })
+      .then((response) => {
+        const { token, message } = response.data;
+
+        Cookie.set("userAuthToken", token, {
+          expires: 7, // token will last 7 days
+          secure: true, // cookie only set over HTTPS (recommended in production)
+          sameSite: "Strict", // prevent CSRF attacksz
+        });
+        setMsg(message);
+        setTimeout(() => {
+          setMsg("");
+          navigate("/");
+          window.location.reload()
+        }, 1500);
+      })
+      .catch((err) => {
+        console.log("მოხდა რაღაც შეცდომა შესვლის დროს", err);
+      });
+  };
+
+  return (
+    <div className="auth-container">
+      <Form handleAuth={handleSignIn} msg={msg} authType={"SignIn"} />
+    </div>
+  );
+};
+
+export default SignIn;
