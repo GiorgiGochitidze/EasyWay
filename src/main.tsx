@@ -18,12 +18,10 @@ const router = createBrowserRouter([
         element: <AboutCard />,
       },
       {
-
         path: "/partners",
         element: <Partniors />,
       },
       {
-
         path: "/new-partner",
         element: <BecomeAPartner />,
       },
