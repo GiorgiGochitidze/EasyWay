@@ -9,7 +9,7 @@ import Close from "../../assets/icon-close.svg";
 const navigation: navigation[] = [
   {
     nav: "მთავარი",
-    route: "/",
+    route: "/main",
   },
   {
     nav: "ბარათის შესახებ",
