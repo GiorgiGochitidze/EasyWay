@@ -5,15 +5,16 @@ import tiktok from "/img/colored-logo (2).png";
 
 const Home = () => {
   return (
-    <main className="main">
-      <div>
-        <div className="centerText">
-          <h1 className="titleHome">გახადე მარტივი ჩვენთან ერთად!</h1>
-          <h6 className="minText">შემოგვიერთდი ახლავე</h6>
-          <div className="buttons">
-            <button className="firstButtonn">შეიძინე ახლავე</button>
-            <button className="secondButtonn">პარტნიორები</button>
-          </div>
+    <main>
+      <div className="centerText">
+        <h1 className="titleHome">გახადე მარტივი ჩვენთან ერთად!</h1>
+        <h6 className="minText">შემოგვიერთდი ახლავე</h6>
+      </div>
+      <div className="buttonAndSocMedia">
+        {" "}
+        <div className="buttons">
+          <button className="firstButtonn">შეიძინე ახლავე</button>
+          <button className="secondButtonn">პარტნიორები</button>
         </div>
         <div className="soc">
           <a
@@ -39,6 +40,7 @@ const Home = () => {
           </a>
         </div>
       </div>
+
       <div className="wave-container">
         <svg
           className="waves"

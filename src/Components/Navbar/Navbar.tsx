@@ -2,11 +2,12 @@ import "./css/navbar.css";
 import type { navigation } from "./type";
 // import hamburgerIcon from "../../assets/icon-hamburger.svg";
 import EasyWayLogo from "../../assets/easyWayLogo.jpeg";
+import { Link } from "react-router-dom";
 
 const navigation: navigation[] = [
   {
     nav: "მთავარი",
-    route: "/",
+    route: "/main",
   },
   {
     nav: "ბარათის შესახებ",
@@ -32,7 +33,13 @@ const Navbar = () => {
           </div>
           <div className="navItems-container">
             {navigation.map((navItems, index) => (
-              <p key={index}>{navItems.nav}</p>
+              <Link
+                style={{ textDecoration: "none", color: "black" }}
+                to={navItems.route}
+                key={index}
+              >
+                <p>{navItems.nav}</p>
+              </Link>
             ))}
           </div>
         </nav>
