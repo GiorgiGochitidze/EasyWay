@@ -1,0 +1,130 @@
+.footer {
+  width: 100%;
+  height: auto;
+  min-height: 200px;
+  color: black;
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+  padding: 70px 0;
+  margin-top: auto;
+  position: relative;
+  bottom: 0;
+  white-space: pre-line;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+.sponsor {
+  background-color: #1d1e21;
+  margin-bottom: -70px;
+  margin-top: 50px;
+  font-size: 16px;
+  color: gray;
+  text-align: center;
+}
+
+.footer h4 {
+  font-family: "georgian", sans-serif;
+}
+
+.container {
+  width: 100%;
+  margin: auto;
+}
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  gap: 30px;
+}
+ul {
+  list-style: none;
+}
+
+ul > li > p {
+  margin-bottom: 10px;
+}
+
+.footerCol {
+  width: 25%;
+  padding: 0 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.footerCol ul li:not(:last-child) {
+  margin-bottom: 10px;
+}
+.footerCol ul li p {
+  font-size: 16px;
+  text-transform: capitalize;
+  font-family: "georgian normal", sans-serif;
+  text-decoration: none;
+  font-weight: 300;
+  color: rgba(67, 82, 140, 0.800);
+  display: block;
+  transition: all 0.3s ease;
+}
+.footerCol ul li p:hover {
+  color: rgba(67, 82, 140);;
+  padding-left: 8px;
+  cursor: pointer;
+}
+
+.socialLinks {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.footerCol .socialLinks a {
+  display: flex;
+  min-height: 40px;
+  min-width: 40px;
+  justify-content: center;
+  align-items: center;
+  border: 0;
+  text-align: center;
+  line-height: 40px;
+  border-radius: 50%;
+}
+.footerCol .socialLinks a:hover {
+  cursor: pointer;
+}
+
+.copyright {
+  width: 100%;
+  height: 50px;
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-family: "Lato", sans-serif;
+}
+
+/*responsive*/
+
+@media screen and (max-width: 835px) {
+  .footerCol {
+    text-align: center;
+  }
+
+  .miniInfo {
+    justify-content: center !important;
+  }
+}
+
+@media screen and (max-width: 505px) {
+  .footerCol {
+    width: 50%;
+    margin-bottom: 30px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+  }
+}

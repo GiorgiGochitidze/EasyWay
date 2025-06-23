@@ -1,6 +1,6 @@
 const LinkStyles = {
   color: "blue",
-  textDecoration: "underline",
+  textDecoration: "none",
 };
 
 export default LinkStyles;

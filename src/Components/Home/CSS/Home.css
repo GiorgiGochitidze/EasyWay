@@ -49,6 +49,7 @@ main {
   border-radius: 50px;
   width: 200px;
   border: none;
+  color: white;
 }
 
 .firstButtonn:hover {

@@ -1,47 +1,67 @@
 .form-container {
-  width: 450px;
+  width: 800px;
   height: auto;
-  border: 3px solid black;
   border-radius: 10px;
   padding: 20px;
   box-sizing: border-box;
   display: flex;
+  flex-direction: row-reverse;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
   gap: 20px;
+  background-color: white;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
-.form-container > label {
+.form-part {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: center;
+  text-align: center;
+  gap: 30px;
+}
+
+.form-part h1 {
+  color: black;
+}
+
+.form-part > label {
   width: 100%;
-  min-height: 35px;
+  min-height: 38px;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.form-container > label > input {
+.form-part > label > input {
   width: 100%;
   height: 100%;
   display: flex;
-  border: 1px solid black;
+  border: 1px solid white;
   border-radius: 5px;
   padding-inline: 10px;
   box-sizing: border-box;
   font-family: "georgian", sans-serif;
+  box-shadow: inset rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
 
-.form-container button {
+.form-part > label > input:focus {
+  outline: none;
+}
+
+.form-part button {
   width: 100%;
   min-height: 38px;
   border: 0;
-  border-radius: 5px;
-  background-color: black;
+  border-radius: 20px;
+  background-color: #4e34b7;
   color: white;
   font-family: "georgian", sans-serif;
 }
 
-.form-container button:hover {
+.form-part button:hover {
   cursor: pointer;
 }
 

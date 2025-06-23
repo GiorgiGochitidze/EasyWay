@@ -21,10 +21,13 @@ const navigation: navigation[] = [
     nav: "გახდი პარტნიორი",
     route: "/new-partner",
   },
+  {
+    nav: "შესვლა",
+    route: "/SignIn",
+  },
 ];
 
 const Navbar = () => {
-
   return (
     <>
       <header>
