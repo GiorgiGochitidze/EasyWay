@@ -1,4 +1,19 @@
-const Card = () => {
+
+type PartnerCompany = {
+  companyName: string;
+  companyId: string;
+};
+
+type CardType = {
+  cardId: string;
+  duration: string;
+  startDate: string;
+  endDate: string;
+  partnerCompany: PartnerCompany;
+};
+
+const Card = ({ card }: { card: CardType }) => {
+
   return (
     <div className="card-wrapper">
       <div className="card-flip">
@@ -14,7 +29,7 @@ const Card = () => {
               <p>30%</p>
             </div>
             <p style={{ fontSize: "13px", textAlign: "center" }}>
-              Cottage Panorama in Bulachaur
+              {card.partnerCompany?.companyName || "პარტნიორი კომპანია"}
             </p>
           </div>
         </div>
