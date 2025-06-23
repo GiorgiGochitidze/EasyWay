@@ -3,7 +3,7 @@ import "./CSS/Form.css";
 import { Link } from "react-router-dom";
 import LinkStyles from "../LinkStyles";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
-import phoneVerified from '../../assets/smartPhoneVerified.jpg'
+import phoneVerified from "../../assets/smartPhoneVerified.jpg";
 
 type FormDataTypes = {
   userName: string;

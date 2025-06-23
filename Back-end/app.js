@@ -1,64 +1,39 @@
-import express from 'express'
-import cors from 'cors'
-import cookieParser from 'cookie-parser'
-import dotenv from 'dotenv'
-import mongoose from 'mongoose'
+const express = require("express");
+const cors = require("cors");
+const app = express();
+const PORT = 5000;
+const mongoose = require("mongoose");
+const cloudinary = require("cloudinary").v2;
+require("dotenv").config();
 
+app.use(cors());
+app.use(express.json());
 
-import { registerRouter } from './Routes/auth-route.js'
-import { loginRouter } from './Routes/auth-route.js'
+const DB_PASS = process.env.DB_USER_PASS;
 
-import { createDiscountRouter } from './Routes/discount-route.js'
-import { getDiscountRouter } from './Routes/discount-route.js'
-import { updateDiscountRouter } from './Routes/discount-route.js'
-import { deleteDiscountRouter } from './Routes/discount-route.js'
+const uri = `mongodb+srv://giorgigochitidze5555:${DB_PASS}@cluster0.1zdn5az.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
+const MongoLocal = "mongodb://localhost:27017/";
 
-import { addPartnerRouter }  from './Routes/partners-route.js'
-import { getPartnersRouter } from './Routes/partners-route.js'
-import { updatePartnerRouter } from './Routes/partners-route.js'
-import { deletePartnerRouter } from './Routes/partners-route.js'
-
-dotenv.config()
-
-
-const app = express()
-const PORT = process.env.PORT || 3000
-
-const corsOptions = {
-    origin: "*", 
-    credentials: true, 
-} 
-
-app.use(cors(corsOptions))
-app.use(express.json())
-app.use(cookieParser())
-
-const url = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.muavqao.mongodb.net/`
-
-app.use('/register', registerRouter)
-app.use('/login', loginRouter)
-
-app.use('/createDiscount', createDiscountRouter)
-app.use('/showDiscounts', getDiscountRouter)
-app.use('/uptDiscount', updateDiscountRouter)
-app.use('/delDiscount', deleteDiscountRouter)
-
-app.use('/addPartner', addPartnerRouter)
-app.use('/showPartners', getPartnersRouter)
-app.use('/uptPartner', updatePartnerRouter)
-app.use('/delPartner', deletePartnerRouter)
-
-
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 
 mongoose
-    .connect(url)
-    .then(() => console.log("MongoDB connected"))
-    .catch((error) => {
-        console.log("Error", error.message)
-        process.exit(1)
-    })
+  .connect(MongoLocal)
+  .then(() => {
+    console.log("Connected to MongoDB");
+  })
+  .catch((err) => {
+    console.log("Error with connection to MongoDB", err);
+  });
+
+const AuthRoute = require("./routes/UserRoutes/UserAuth");
+const addCard = require("./routes/Card/CardRoute");
+
+app.use("/", AuthRoute);
 
 app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`)
-})
-
+  console.log("Server is running on localhost:5000");
+});

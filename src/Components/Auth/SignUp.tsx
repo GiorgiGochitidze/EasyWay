@@ -5,7 +5,6 @@ import axios from "axios";
 import Cookie from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import { usePacket } from "../../Hooks/PacketContext";
-import ShowCard from "./ShowCard";
 
 type FormDataTypes = {
   userName: string;
@@ -29,6 +28,7 @@ const SignUp = () => {
         userName: userName,
         email: email,
         password: password,
+        userPackage: selectedPacket
       })
       .then((response) => {
         const { token, message } = response.data;
@@ -53,7 +53,6 @@ const SignUp = () => {
   return (
     <div className="auth-container">
       <Form handleAuth={handleSignUp} msg={msg} authType={"SignUp"} />
-      <ShowCard />
     </div>
   );
 };

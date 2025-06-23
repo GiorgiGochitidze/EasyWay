@@ -61,12 +61,12 @@ ul > li > p {
   font-family: "georgian normal", sans-serif;
   text-decoration: none;
   font-weight: 300;
-  color: rgba(67, 82, 140, 0.800);
+  color: rgba(0, 0, 0, 0.671);
   display: block;
   transition: all 0.3s ease;
 }
 .footerCol ul li p:hover {
-  color: rgba(67, 82, 140);;
+  color: black;
   padding-left: 8px;
   cursor: pointer;
 }
