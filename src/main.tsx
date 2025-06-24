@@ -19,7 +19,7 @@ const BecomeAPartner = React.lazy(
 );
 const SignIn = React.lazy(() => import("./Components/Auth/SignIn.tsx"));
 const UserProfile = React.lazy(
-  () => import("./Components/UserProfile/userProfile.tsx")
+  () => import("./Components/UserProfile/UserProfile.tsx")
 );
 const AddPartner = React.lazy(
   () => import("./Components/AddPartner/AddPartner.tsx")
