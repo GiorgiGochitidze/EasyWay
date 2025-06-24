@@ -22,22 +22,27 @@ const SignIn = () => {
 
     axios
       .post("https://easyway-fmdo.onrender.com/signin", {
-        email: email,
-        password: password,
+        email,
+        password,
       })
       .then((response) => {
         const { token, message } = response.data;
 
+        // ✅ Set auth cookie
         Cookie.set("userAuthToken", token, {
-          expires: 7, // token will last 7 days
-          secure: true, // cookie only set over HTTPS (recommended in production)
-          sameSite: "Strict", // prevent CSRF attacksz
+          expires: 7,
+          secure: true,
+          sameSite: "Strict",
         });
+
+        // ✅ Remove leftover packet (if any)
+        localStorage.removeItem("selectedPacket");
+
         setMsg(message);
         setTimeout(() => {
           setMsg("");
           navigate("/");
-          window.location.reload()
+          window.location.reload();
         }, 1500);
       })
       .catch((err) => {

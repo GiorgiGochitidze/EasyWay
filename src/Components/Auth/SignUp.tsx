@@ -1,6 +1,6 @@
 import Form from "./Form";
 import "./CSS/Auth.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import Cookie from "js-cookie";
 import { useNavigate } from "react-router-dom";
@@ -17,27 +17,38 @@ const SignUp = () => {
   const navigate = useNavigate();
   const { selectedPacket } = usePacket();
 
-  console.log(selectedPacket);
+  // ✅ Alert and redirect if no packet selected
+  useEffect(() => {
+    if (!selectedPacket) {
+      window.alert("რეგისტრაციამდე გთხოვთ შეარჩიოთ ერთ-ერთი პაკეტი");
+      navigate("/about");
+    }
+  }, [selectedPacket, navigate]);
 
   const handleSignUp = ({ userName, email, password }: FormDataTypes) => {
     if (!userName || !email || !password) {
       return console.log("გთხოვთ შეავსოთ ყველა ველი");
     }
+
     axios
       .post("https://easyway-fmdo.onrender.com/signup", {
-        userName: userName,
-        email: email,
-        password: password,
-        userPackage: selectedPacket
+        userName,
+        email,
+        password,
+        userPackage: selectedPacket,
       })
       .then((response) => {
         const { token, message } = response.data;
 
         Cookie.set("userAuthToken", token, {
-          expires: 7, // token will last 7 days
-          secure: true, // cookie only set over HTTPS (recommended in production)
-          sameSite: "Strict", // prevent CSRF attacks
+          expires: 7,
+          secure: true,
+          sameSite: "Strict",
         });
+
+        // ✅ Remove packet from localStorage
+        localStorage.removeItem("selectedPacket");
+
         setMsg(message);
         setTimeout(() => {
           setMsg("");
@@ -46,7 +57,7 @@ const SignUp = () => {
         }, 1500);
       })
       .catch((err) => {
-        console.log("მოხდა რაღაც შეცდომა შესვლის დროს", err);
+        console.log("მოხდა რაღაც შეცდომა რეგისტრაციის დროს", err);
       });
   };
 
