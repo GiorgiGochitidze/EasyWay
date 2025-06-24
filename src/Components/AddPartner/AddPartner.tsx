@@ -6,6 +6,7 @@ import "./CSS/AddPartner.css";
 const AddPartner = () => {
   const [companyName, setCompanyName] = useState("");
   const [description, setDescription] = useState("");
+  const [location, setLocation] = useState("");
   const [files, setFiles] = useState<File[]>([]);
   const [msg, setMsg] = useState("");
   const [loading, setLoading] = useState(false);
@@ -24,24 +25,20 @@ const AddPartner = () => {
     const formData = new FormData();
     formData.append("companyName", companyName);
     formData.append("description", description);
+    formData.append("location", location);
     files.forEach((file) => formData.append("images", file));
 
     try {
-      const res = await axios.post(
-        "http://localhost:5000/addPartner",
-        formData,
-        {
-          headers: { "Content-Type": "multipart/form-data" },
-        }
-      );
+      const res = await axios.post("http://localhost:5000/addPartner", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
 
       setMsg(res.data.message || "პარტნიორი დაემატა წარმატებით");
       setCompanyName("");
       setDescription("");
+      setLocation("");
       setFiles([]);
-      setTimeout(() => {
-        window.location.reload()
-      }, 1000)
+      setTimeout(() => window.location.reload(), 1000);
     } catch (err) {
       const error = err as AxiosError<{ message: string }>;
       setMsg(error.response?.data?.message || "შეცდომა პარტნიორის დამატებისას");
@@ -54,26 +51,31 @@ const AddPartner = () => {
     <div className="add-partner-form">
       <h2>დამატე პარტნიორი კომპანია</h2>
       <form onSubmit={handleSubmit}>
-        <label htmlFor="companyName">
+        <label>
           <input
             type="text"
             placeholder="კომპანიის სახელი"
             value={companyName}
             onChange={(e) => setCompanyName(e.target.value)}
             required
-            name="companyName"
-            id="companyName"
           />
         </label>
-        <label htmlFor="companyDescription">
+        <label>
           <textarea
             placeholder="კომპანიის აღწერა"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             rows={4}
             required
-            name="companyDescription"
-            id="companyDescription"
+          />
+        </label>
+        <label>
+          <input
+            type="text"
+            placeholder="ლოკაცია (მაგ: თბილისი)"
+            value={location}
+            onChange={(e) => setLocation(e.target.value)}
+            required
           />
         </label>
         <label htmlFor="imageUpload" className="custom-file-upload">
@@ -83,16 +85,14 @@ const AddPartner = () => {
             accept="image/*"
             multiple
             onChange={handleFilesChange}
-            name="imageUpload"
             id="imageUpload"
+            name="images"
           />
         </label>
         {files.length > 0 && <p>{files.length} სურათი დამატებულია</p>}
-
         <button type="submit" className="submitPartner-btn" disabled={loading}>
           {loading ? "იტვირთება..." : "დამატება"}
         </button>
-
         {msg && <p className="feedback">{msg}</p>}
       </form>
     </div>

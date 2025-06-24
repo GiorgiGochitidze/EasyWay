@@ -27,6 +27,10 @@ const PartnerSchema = new mongoose.Schema({
       type: String, // Cloudinary image URLs
     },
   ],
+  location: {
+    type: String,
+    required: true,
+  },
 });
 
 module.exports = mongoose.model("Partner", PartnerSchema);
