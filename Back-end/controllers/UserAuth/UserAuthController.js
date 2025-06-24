@@ -22,7 +22,8 @@ exports.SignUp = async (req, res) => {
       email,
       password: hashedPass,
       package: userPackage,
-      cards: []
+      cards: [],
+      role: "user"
     });
 
     await newUser.save();
@@ -31,6 +32,7 @@ exports.SignUp = async (req, res) => {
       {
         id: newUser._id,
         userName: newUser.userName,
+        role: newUser.role
       },
       process.env.JWT_SECRET,
       { expiresIn: "7d" }

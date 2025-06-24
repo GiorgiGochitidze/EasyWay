@@ -21,6 +21,9 @@ const SignIn = React.lazy(() => import("./Components/Auth/SignIn.tsx"));
 const UserProfile = React.lazy(
   () => import("./Components/UserProfile/userProfile.tsx")
 );
+const AddPartner = React.lazy(
+  () => import("./Components/AddPartner/AddPartner.tsx")
+);
 
 const router = createBrowserRouter([
   {
@@ -55,6 +58,10 @@ const router = createBrowserRouter([
       {
         path: "/userProfile",
         element: <UserProfile />,
+      },
+      {
+        path: "/addPartner",
+        element: <AddPartner />,
       },
     ],
   },

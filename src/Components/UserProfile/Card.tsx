@@ -1,3 +1,4 @@
+import { useState } from "react";
 
 type PartnerCompany = {
   companyName: string;
@@ -13,10 +14,19 @@ type CardType = {
 };
 
 const Card = ({ card }: { card: CardType }) => {
+  const [flipped, setFlipped] = useState(false);
+
+  const handleCardClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    // Prevent flip if click is inside the discounts section
+    const target = e.target as HTMLElement;
+    if (target.closest(".discounts")) return;
+
+    setFlipped((prev) => !prev);
+  };
 
   return (
-    <div className="card-wrapper">
-      <div className="card-flip">
+    <div className="card-wrapper" onClick={handleCardClick}>
+      <div className={`card-flip ${flipped ? "flipped" : ""}`}>
         <div className="card-front">
           <div className="card-upperPart">
             <p>Easy Way</p>

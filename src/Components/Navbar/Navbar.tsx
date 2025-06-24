@@ -83,6 +83,19 @@ const Navbar = () => {
                     </p>
                   </Link>
 
+                  {decoded?.role == "admin" && (
+                    <Link
+                      className="profileItem-p "
+                      to="/addPartner"
+                      style={LinkStyles}
+                    >
+                      <p
+                        onClick={() => setProfileMenu(!profileMenu)}
+                        style={{ color: "black" }}
+                      >პარტნიორის დამატება</p>
+                    </Link>
+                  )}
+
                   <p onClick={handleLogout}>გასვლა</p>
                 </motion.div>
               )}

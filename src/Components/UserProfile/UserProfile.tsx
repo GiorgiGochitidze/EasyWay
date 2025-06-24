@@ -4,10 +4,22 @@ import "./CSS/UserProfile.css";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-
 type PartnerCompany = {
   companyName: string;
   companyId: string;
+};
+
+type CardType = {
+  _id: string;
+  cardId: string;
+  cardUser: string;
+  duration: string;
+  startDate: string;
+  endDate: string;
+  partnerCompany: {
+    companyName: string;
+    companyId: string;
+  };
 };
 
 const UserProfile = () => {
@@ -15,7 +27,7 @@ const UserProfile = () => {
   const [partners, setPartners] = useState([]);
   const [showPartnerList, setShowPartnerList] = useState(false);
   const [msg, setMsg] = useState("");
-  const [userCards, setUserCards] = useState([]);
+  const [userCards, setUserCards] = useState<CardType[]>([]);
 
   // Fetch partners from backend
   useEffect(() => {
@@ -34,14 +46,13 @@ const UserProfile = () => {
       })
       .then((response) => {
         const cards = response.data;
-        setUserCards(cards); // ✅ store in state
+        setUserCards(cards);
       })
       .catch((err) => {
         console.log(err);
       });
   }, [decoded]);
 
-  console.log(partners);
 
   const handleAddCard = async (partner: PartnerCompany) => {
     if (!decoded) return;
@@ -67,13 +78,15 @@ const UserProfile = () => {
   return (
     <div className="profile-container">
       <div className="profile-upperPart">
-        <p>გამარჯობა: {decoded?.userName}</p>
-        <p>პროფილი</p>
+        <h1>გამარჯობა: {decoded?.userName}</h1>
+        <h2 style={{fontSize: "30px"}}>პროფილი</h2>
       </div>
 
       {userCards.length > 0 ? (
         <div className="profile-card-part">
-          <Card card={userCards[0]} />
+          {userCards.map((card) => (
+            <Card key={card._id} card={card} />
+          ))}
         </div>
       ) : (
         <p style={{ marginLeft: "30px" }}>ბარათი ჯერ არ გაქვს</p>
@@ -98,18 +111,18 @@ const UserProfile = () => {
         <div style={{ padding: "20px", marginLeft: "30px" }}>
           <p>აირჩიე პარტნიორი:</p>
           <ul>
-            {partners.map((partner: any) => (
+            {partners.map((partner: PartnerCompany) => (
               <li
-                key={partner.id}
+                key={partner.companyId}
+                onClick={() => handleAddCard(partner)}
                 style={{
                   cursor: "pointer",
                   marginBottom: "8px",
                   color: "blue",
                   textDecoration: "underline",
                 }}
-                onClick={() => handleAddCard(partner)}
               >
-                {partner.name}
+                {partner.companyName}
               </li>
             ))}
           </ul>

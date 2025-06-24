@@ -8,6 +8,7 @@
 .wholeBox {
   display: flex;
   justify-content: space-around;
+  padding-inline: 30px;
 }
 .becomeAPartner .h1 {
   padding-top: 120px;

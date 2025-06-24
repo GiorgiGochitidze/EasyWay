@@ -8,6 +8,7 @@ import { jwtDecode } from "jwt-decode";
 type DecodedToken = {
   id: string;
   userName: string;
+  role: string
   // Add any other fields your JWT contains
 };
 
