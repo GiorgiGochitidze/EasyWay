@@ -77,7 +77,7 @@ const AddPartner = () => {
           />
         </label>
         <label htmlFor="imageUpload" className="custom-file-upload">
-          სურათები (მაქსიმუმ 10 სურათი):
+          სურათები (მაქსიმუმ 10 სურათი)
           <input
             type="file"
             accept="image/*"
