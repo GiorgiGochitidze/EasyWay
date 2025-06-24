@@ -24,7 +24,7 @@ const SignUp = () => {
       return console.log("გთხოვთ შეავსოთ ყველა ველი");
     }
     axios
-      .post("http://localhost:5000/signup", {
+      .post("https://easyway-fmdo.onrender.com/signup", {
         userName: userName,
         email: email,
         password: password,

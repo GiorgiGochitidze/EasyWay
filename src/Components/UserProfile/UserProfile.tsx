@@ -32,7 +32,7 @@ const UserProfile = () => {
   // Fetch partners from backend
   useEffect(() => {
     axios
-      .post("http://localhost:5000/partners")
+      .post("https://easyway-fmdo.onrender.com/partners")
       .then((res) => setPartners(res.data))
       .catch((err) => console.error("Partner fetch error:", err));
   }, []);
@@ -41,7 +41,7 @@ const UserProfile = () => {
     if (!decoded || !decoded.id) return;
 
     axios
-      .post("http://localhost:5000/user/cards", {
+      .post("https://easyway-fmdo.onrender.com/user/cards", {
         userId: decoded.id,
       })
       .then((response) => {
@@ -66,7 +66,7 @@ const UserProfile = () => {
     };
 
     try {
-      const res = await axios.post("http://localhost:5000/addCard", cardData);
+      const res = await axios.post("https://easyway-fmdo.onrender.com/addCard", cardData);
       setMsg(res.data.message);
       setShowPartnerList(false);
     } catch (err) {

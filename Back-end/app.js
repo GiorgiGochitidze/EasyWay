@@ -11,7 +11,7 @@ app.use(express.json());
 
 const DB_PASS = process.env.DB_USER_PASS;
 
-const uri = `mongodb+srv://giorgigochitidze5555:${DB_PASS}@cluster0.1zdn5az.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
+const uri = `mongodb+srv://giorgigochitidze5555:${DB_PASS}@cluster0.b2xn9kq.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
 const MongoLocal = "mongodb://localhost:27017/";
 
 cloudinary.config({

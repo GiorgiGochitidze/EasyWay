@@ -29,7 +29,7 @@ const AddPartner = () => {
     files.forEach((file) => formData.append("images", file));
 
     try {
-      const res = await axios.post("http://localhost:5000/addPartner", formData, {
+      const res = await axios.post("https://easyway-fmdo.onrender.com/addPartner", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
 
