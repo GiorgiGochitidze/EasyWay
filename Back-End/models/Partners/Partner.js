@@ -31,6 +31,10 @@ const PartnerSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  phone: {
+    type: String,
+    required: true,
+  },
 });
 
 module.exports = mongoose.model("Partner", PartnerSchema);

@@ -1,0 +1,55 @@
+.policy-container {
+  margin: 120px auto;
+  padding: 0 50px;
+  max-width: 1200px;
+}
+
+.policy-container h1 {
+  text-align: left;
+  margin-bottom: 40px;
+}
+
+.policy-container section {
+  margin-bottom: 30px;
+}
+
+.policy-container h2 {
+  margin-bottom: 10px;
+  font-size: 20px;
+  color: #333;
+}
+
+.policy-container ul {
+  list-style-type: disc;
+  padding-left: 40px;
+  margin-top: 10px;
+}
+
+.policy-container li {
+  margin-left: 20px;
+  margin-bottom: 6px;
+}
+
+/* ✅ Responsive for screens smaller than 570px */
+@media (max-width: 570px) {
+  .policy-container {
+    padding: 0 20px;
+  }
+
+  .policy-container h1 {
+    font-size: 24px;
+    text-align: center;
+  }
+
+  .policy-container h2 {
+    font-size: 18px;
+  }
+
+  .policy-container ul {
+    padding-left: 25px;
+  }
+
+  .policy-container li {
+    margin-left: 10px;
+  }
+}

@@ -24,6 +24,9 @@ const UserProfile = React.lazy(
 const AddPartner = React.lazy(
   () => import("./Components/AddPartner/AddPartner.tsx")
 );
+const Terms = React.lazy(
+  () => import("./Components/TermsAndConditions/Terms.tsx")
+);
 
 const router = createBrowserRouter([
   {
@@ -32,7 +35,7 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <Home /> },
       {
-        path: "/about",
+        path: "/packets",
         element: <AboutCard />,
       },
       {
@@ -62,6 +65,10 @@ const router = createBrowserRouter([
       {
         path: "/addPartner",
         element: <AddPartner />,
+      },
+      {
+        path: "/Terms&Conditions",
+        element: <Terms />,
       },
     ],
   },

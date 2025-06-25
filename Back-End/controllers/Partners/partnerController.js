@@ -11,16 +11,18 @@ exports.GetAllPartners = async (req, res) => {
     });
   } catch (err) {
     console.error("შეცდომა პარტნიორი კომპანიების ჩატვირთვისას:", err);
-    res.status(500).json({ message: "შიდა შეცდომა პარტნიორი კომპანიების მიღებისას" });
+    res
+      .status(500)
+      .json({ message: "შიდა შეცდომა პარტნიორი კომპანიების მიღებისას" });
   }
 };
 
 exports.AddPartner = async (req, res) => {
   try {
-    const { companyName, description, location } = req.body;
+    const { companyName, description, location, phone } = req.body;
     const files = req.files;
 
-    if (!companyName || !description || !location) {
+    if (!companyName || !description || !location || !phone) {
       return res.status(400).json({ message: "ყველა ველი სავალდებულოა" });
     }
 
@@ -32,17 +34,18 @@ exports.AddPartner = async (req, res) => {
     const companyId = await generateUniqueCompanyId();
 
     const urls = await Promise.all(
-      files.map((file) =>
-        new Promise((resolve, reject) => {
-          const stream = cloudinary.uploader.upload_stream(
-            { folder: "partners" },
-            (error, result) => {
-              if (error) reject(error);
-              else resolve(result.secure_url);
-            }
-          );
-          stream.end(file.buffer);
-        })
+      files.map(
+        (file) =>
+          new Promise((resolve, reject) => {
+            const stream = cloudinary.uploader.upload_stream(
+              { folder: "partners" },
+              (error, result) => {
+                if (error) reject(error);
+                else resolve(result.secure_url);
+              }
+            );
+            stream.end(file.buffer);
+          })
       )
     );
 
@@ -51,6 +54,7 @@ exports.AddPartner = async (req, res) => {
       companyId,
       description,
       location,
+      phone,
       images: urls,
     });
 

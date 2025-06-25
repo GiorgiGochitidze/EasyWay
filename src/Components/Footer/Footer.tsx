@@ -13,7 +13,7 @@ import { BiLogoGmail } from "react-icons/bi";
 const Footer = () => {
   return (
     <footer className="footer">
-      <div className="container">
+      <div className="footer-container">
         <div className="row">
           <div className="footerCol">
             <h4>კომპანია</h4>
@@ -49,7 +49,7 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
-                <Link style={LinkStyles} to="/TechWorks">
+                <Link style={LinkStyles} to="/Terms&Conditions">
                   <p>წესები და პირობები</p>
                 </Link>
               </li>

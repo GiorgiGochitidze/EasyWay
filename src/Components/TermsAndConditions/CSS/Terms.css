@@ -1,0 +1,56 @@
+.terms-container {
+  margin: 120px auto;
+  padding: 0 50px;
+  max-width: 1200px;
+}
+
+.terms-container h1 {
+  text-align: left;
+  margin-bottom: 40px;
+}
+
+.terms-container section {
+  margin-bottom: 30px;
+}
+
+.terms-container h2 {
+  margin-bottom: 10px;
+  font-size: 20px;
+  color: #333;
+}
+
+.terms-container ul {
+  list-style-type: disc;
+  padding-left: 40px;
+  margin-top: 10px;
+}
+
+.terms-container li,
+.terms-container p {
+  margin-left: 20px;
+  margin-bottom: 6px;
+}
+
+/* ✅ Responsive for screens smaller than 570px */
+@media (max-width: 570px) {
+  .terms-container {
+    padding: 0 20px;
+  }
+
+  .terms-container h1 {
+    font-size: 24px;
+    text-align: center;
+  }
+
+  .terms-container h2 {
+    font-size: 18px;
+  }
+
+  .terms-container ul {
+    padding-left: 25px;
+  }
+
+  .terms-container li {
+    margin-left: 10px;
+  }
+}

@@ -2,6 +2,7 @@ import "./CSS/Home.css";
 import fb from "/img/colored-logo (1).png";
 import insta from "/img/colored-logo.png";
 import tiktok from "/img/colored-logo (2).png";
+import { Link } from "react-router-dom";
 
 const Home = () => {
   return (
@@ -13,8 +14,12 @@ const Home = () => {
       <div className="buttonAndSocMedia">
         {" "}
         <div className="buttons">
-          <button className="firstButtonn">შეიძინე ახლავე</button>
-          <button className="secondButtonn">პარტნიორები</button>
+          <Link to="/packets">
+            <button className="firstButtonn">შეიძინე ახლავე</button>
+          </Link>
+          <Link to="/partners">
+            <button className="secondButtonn">პარტნიორები</button>
+          </Link>
         </div>
         <div className="soc">
           <a

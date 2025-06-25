@@ -16,7 +16,7 @@ const navigation: navigation[] = [
   },
   {
     nav: "ბარათის შესახებ",
-    route: "/about",
+    route: "/packets",
   },
   {
     nav: "პარტნიორები",
@@ -92,7 +92,9 @@ const Navbar = () => {
                       <p
                         onClick={() => setProfileMenu(!profileMenu)}
                         style={{ color: "black" }}
-                      >პარტნიორის დამატება</p>
+                      >
+                        პარტნიორის დამატება
+                      </p>
                     </Link>
                   )}
 

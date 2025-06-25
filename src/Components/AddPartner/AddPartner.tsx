@@ -10,6 +10,7 @@ const AddPartner = () => {
   const [files, setFiles] = useState<File[]>([]);
   const [msg, setMsg] = useState("");
   const [loading, setLoading] = useState(false);
+  const [phone, setPhone] = useState("");
 
   const handleFilesChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) return;
@@ -26,12 +27,17 @@ const AddPartner = () => {
     formData.append("companyName", companyName);
     formData.append("description", description);
     formData.append("location", location);
+    formData.append("phone", phone);
     files.forEach((file) => formData.append("images", file));
 
     try {
-      const res = await axios.post("https://easyway-fmdo.onrender.com/addPartner", formData, {
-        headers: { "Content-Type": "multipart/form-data" },
-      });
+      const res = await axios.post(
+        "https://easyway-fmdo.onrender.com/addPartner",
+        formData,
+        {
+          headers: { "Content-Type": "multipart/form-data" },
+        }
+      );
 
       setMsg(res.data.message || "პარტნიორი დაემატა წარმატებით");
       setCompanyName("");
@@ -61,20 +67,29 @@ const AddPartner = () => {
           />
         </label>
         <label>
-          <textarea
-            placeholder="კომპანიის აღწერა"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            rows={4}
-            required
-          />
-        </label>
-        <label>
           <input
             type="text"
             placeholder="ლოკაცია (მაგ: თბილისი)"
             value={location}
             onChange={(e) => setLocation(e.target.value)}
+            required
+          />
+        </label>
+        <label>
+          <input
+            type="tel"
+            placeholder="ტელეფონის ნომერი"
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
+            required
+          />
+        </label>
+        <label>
+          <textarea
+            placeholder="კომპანიის აღწერა"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            rows={4}
             required
           />
         </label>
