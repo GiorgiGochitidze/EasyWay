@@ -90,7 +90,7 @@ const Footer = () => {
               className="miniInfo"
             >
               <BiLogoGmail size={20} />
-              <p>theatre.theatrali@gmail.com</p>
+              <p>easywaygeo@gmail.com</p>
             </div>
             <div
               style={{
@@ -103,12 +103,12 @@ const Footer = () => {
               className="miniInfo"
             >
               <FaPhone size={20} />
-              <p>+995 571 32 22 28</p>
+              <p>+995 579 16 14 30</p>
             </div>
           </div>
         </div>
       </div>
-      <div className="copyright">© {new Date().getFullYear()} Lasar Studio</div>
+      <div className="copyright">© {new Date().getFullYear()} Easy Way</div>
     </footer>
   );
 };

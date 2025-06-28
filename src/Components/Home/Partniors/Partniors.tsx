@@ -1,55 +1,21 @@
-// Partniors.tsx
-
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Slider from "react-slick";
+import axios from "axios";
 import "./Partniors.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 interface Partner {
-  id: number;
+  id: string;
   imageUrl: string;
   alt: string;
 }
 
-const partners: Partner[] = [
-  {
-    id: 1,
-    imageUrl:
-      "https://static.rfstat.com/renderforest/images/website_maker_images/components/component-images/clients4-1.0.0.png",
-    alt: "Partner 1",
-  },
-  {
-    id: 2,
-    imageUrl:
-      "https://static.rfstat.com/renderforest/images/website_maker_images/components/component-images/clients4-2.0.0.png",
-    alt: "Partner 2",
-  },
-  {
-    id: 3,
-    imageUrl:
-      "https://static.rfstat.com/renderforest/images/website_maker_images/components/component-images/clients4-3.0.0.png",
-    alt: "Partner 3",
-  },
-  {
-    id: 4,
-    imageUrl:
-      "https://static.rfstat.com/renderforest/images/website_maker_images/components/component-images/clients4-4.0.0.png",
-    alt: "Partner 4",
-  },
-  {
-    id: 5,
-    imageUrl:
-      "https://static.rfstat.com/renderforest/images/website_maker_images/components/component-images/clients4-5.0.0.png",
-    alt: "Partner 5",
-  },
-  {
-    id: 6,
-    imageUrl:
-      "https://static.rfstat.com/renderforest/images/website_maker_images/components/component-images/clients4-6.0.0.png",
-    alt: "Partner 6",
-  },
-];
+type RawPartner = {
+  _id: string;
+  images: string[];
+  companyName: string;
+};
 
 interface ArrowProps {
   className?: string;
@@ -84,6 +50,26 @@ const PrevArrow: React.FC<ArrowProps> = ({ className, style, onClick }) => (
 );
 
 const Partniors: React.FC = () => {
+  const [partners, setPartners] = useState<Partner[]>([]);
+
+  useEffect(() => {
+    const fetchPartners = async () => {
+      try {
+        const res = await axios.post("https://easyway-fmdo.onrender.com/loadPartners");
+        const formatted = (res.data.partners as RawPartner[]).map((p) => ({
+          id: p._id,
+          imageUrl: p.images?.[0] || "",
+          alt: p.companyName,
+        }));
+        setPartners(formatted);
+      } catch (err) {
+        console.error("Failed to load partners", err);
+      }
+    };
+
+    fetchPartners();
+  }, []);
+
   const settings = {
     dots: false,
     infinite: true,
@@ -96,24 +82,9 @@ const Partniors: React.FC = () => {
     nextArrow: <NextArrow />,
     prevArrow: <PrevArrow />,
     responsive: [
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 4,
-        },
-      },
-      {
-        breakpoint: 600,
-        settings: {
-          slidesToShow: 3,
-        },
-      },
-      {
-        breakpoint: 480,
-        settings: {
-          slidesToShow: 2,
-        },
-      },
+      { breakpoint: 1024, settings: { slidesToShow: 4 } },
+      { breakpoint: 600, settings: { slidesToShow: 3 } },
+      { breakpoint: 480, settings: { slidesToShow: 2 } },
     ],
   };
 
@@ -131,11 +102,15 @@ const Partniors: React.FC = () => {
           {partners.map((partner) => (
             <div key={partner.id} className="partner-slide">
               <figure className="partner-figure">
-                <img
-                  src={partner.imageUrl}
-                  alt={partner.alt}
-                  className="partner-logo"
-                />
+                {partner.imageUrl ? (
+                  <img
+                    src={partner.imageUrl}
+                    alt={partner.alt}
+                    className="partner-logo"
+                  />
+                ) : (
+                  <div className="partner-logo placeholder">No Image</div> // Optional fallback
+                )}
               </figure>
             </div>
           ))}

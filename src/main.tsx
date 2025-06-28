@@ -75,11 +75,11 @@ const router = createBrowserRouter([
 ]);
 
 createRoot(document.getElementById("root")!).render(
-  <TokenProvider>
-    <PacketProvider>
-      <Suspense fallback={<></>}>
+  <Suspense fallback={<></>}>
+    <TokenProvider>
+      <PacketProvider>
         <RouterProvider router={router} />
-      </Suspense>
-    </PacketProvider>
-  </TokenProvider>
+      </PacketProvider>
+    </TokenProvider>
+  </Suspense>
 );

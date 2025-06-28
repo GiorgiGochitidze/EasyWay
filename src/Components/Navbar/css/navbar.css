@@ -67,6 +67,7 @@ nav {
   justify-content: flex-start;
   align-items: center;
   overflow: hidden;
+  z-index: 10;
 }
 
 .profile-items-list p,
@@ -85,4 +86,22 @@ nav {
 
 .userProfile-container:hover {
   cursor: pointer;
+}
+
+.menu-icon {
+  display: none;
+}
+
+.menu-icon:hover {
+  cursor: pointer;
+}
+
+@media screen and (max-width: 730px) {
+  .navItems-container {
+    display: none;
+  }
+
+  .menu-icon {
+    display: flex;
+  }
 }

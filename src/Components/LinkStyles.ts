@@ -1,5 +1,5 @@
 const LinkStyles = {
-  color: "blue",
+  color: "black",
   textDecoration: "none",
 };
 

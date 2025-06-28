@@ -69,3 +69,13 @@ exports.AddPartner = async (req, res) => {
     res.status(500).json({ message: "შეცდომა პარტნიორის დამატებისას" });
   }
 };
+
+exports.LoadPartnerPreview = async (req, res) => {
+  try {
+    const partners = await Partner.find(); // fetch full data
+    res.status(200).json({ partners });
+  } catch (err) {
+    console.error("Error loading partner preview:", err);
+    res.status(500).json({ message: "შეცდომა პარტნიორების მიღებისას" });
+  }
+};
