@@ -21,7 +21,7 @@ cloudinary.config({
 });
 
 mongoose
-  .connect(uri)
+  .connect(MongoLocal)
   .then(() => {
     console.log("Connected to MongoDB");
   })
