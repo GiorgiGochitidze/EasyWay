@@ -1,4 +1,4 @@
-import "./CSS/navbar.css";
+import "./CSS/navbar.css"; 
 import type { navigation } from "./type";
 import EasyWayLogo from "../../assets/easyWayLogo.jpeg";
 import { Link, useNavigate } from "react-router-dom";
