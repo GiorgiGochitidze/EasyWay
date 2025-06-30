@@ -22,7 +22,7 @@ const SignIn = () => {
 
     // https://easyway-fmdo.onrender.com/
     axios
-      .post("http://localhost:5000/signin", {
+      .post("https://easyway-fmdo.onrender.com/signin", {
         email,
         password,
       })

@@ -31,7 +31,7 @@ const SignUp = () => {
     }
 
     axios
-      .post("http://localhost:5000/signup", {
+      .post("https://easyway-fmdo.onrender.com/signup", {
         userName,
         email,
         password,

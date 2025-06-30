@@ -1,6 +1,8 @@
 const Partner = require("../../models/Partners/Partner");
 const { generateUniqueCompanyId } = require("../../utils/generateId");
 const cloudinary = require("cloudinary").v2;
+const bcrypt = require("bcrypt");
+const saltRounds = 10;
 
 exports.GetAllPartners = async (req, res) => {
   try {

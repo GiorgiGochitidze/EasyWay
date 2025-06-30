@@ -55,12 +55,16 @@ const Partniors: React.FC = () => {
   useEffect(() => {
     const fetchPartners = async () => {
       try {
-        const res = await axios.post("http://localhost:5000/loadPartners");
-        const formatted = (res.data.partners as RawPartner[]).map((p) => ({
-          id: p._id,
-          imageUrl: p.images?.[0] || "",
-          alt: p.companyName,
-        }));
+        const res = await axios.post("https://easyway-fmdo.onrender.com/loadPartners");
+        const formatted = (res.data.partners as RawPartner[]).map(
+          (p: RawPartner) => ({
+            id: p._id,
+            imageUrl: p.images?.[0] || "",
+            alt: p.companyName,
+          })
+        );
+        console.log("Raw partners:", res.data.partners);
+
         setPartners(formatted);
       } catch (err) {
         console.error("Failed to load partners", err);
@@ -72,7 +76,7 @@ const Partniors: React.FC = () => {
 
   const settings = {
     dots: false,
-    infinite: true,
+    infinite: false,
     speed: 500,
     slidesToShow: 6,
     slidesToScroll: 1,
