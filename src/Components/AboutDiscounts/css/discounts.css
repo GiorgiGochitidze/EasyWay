@@ -1,0 +1,142 @@
+.main-container {
+  min-height: 100vh;
+  background: linear-gradient(
+      rgba(215, 255, 249, 0.66),
+      rgba(215, 255, 249, 0.66)
+    ),
+    url("https://static.rfstat.com/renderforest/images/website_maker_images/components/component-images/steps8-1.0.0.jpeg")
+      center center / cover no-repeat;
+
+  padding: 100px 20px 50px;
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+}
+
+.title {
+  text-align: center;
+  font-size: 25px;
+  color: rgb(18, 28, 61);
+}
+
+.text-content {
+  color: rgb(18, 28, 61);
+  text-align: center;
+  font-size: 15.52px;
+}
+
+.text-div {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.number {
+  color: white;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  border-radius: 50%;
+  background: linear-gradient(
+    -180deg,
+    rgb(111, 128, 188) 0%,
+    rgb(51, 66, 121) 96%
+  );
+  font-weight: 700;
+  z-index: 10;
+}
+
+.discount-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  gap: 25px;
+}
+
+.discounts-section {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  align-items: start;
+  position: relative;
+}
+
+.discounts-section::before {
+  content: "";
+  position: absolute;
+  top: -20px;
+  bottom: -20px;
+  width: 6px;
+  background-color: rgb(51, 66, 121);
+  left: 19px;
+  transform: translateX(-50%);
+  border-radius: 10px;
+  z-index: 0;
+}
+
+.message {
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 25px;
+  position: relative;
+  width: 100%;
+  display: flex;
+  box-shadow: rgba(18, 28, 61, 0.15) 0px 0px 24px;
+}
+
+.square {
+  transform: rotate(45deg);
+  width: 20px;
+  height: 20px;
+  background-color: #fff;
+  position: absolute;
+  left: -5px;
+}
+
+.offer {
+  font-size: 19.52px;
+  color: rgb(18, 28, 61);
+  font-weight: 700;
+}
+
+@media only screen and (min-width: 748px) {
+  .title {
+    font-size: 40px;
+  }
+
+  .text-content {
+    font-size: 17px;
+  }
+
+  .offer {
+    font-size: 19px;
+  }
+
+  .discounts-section::before {
+    width: 10px;
+  }
+
+  .discounts-section {
+    width: 700px;
+    margin: auto;
+  }
+
+  .text-content {
+    max-width: 800px;
+    margin: auto;
+  }
+}
+
+@media only screen and (min-width: 1440px) {
+  .discounts-section {
+    width: 800px;
+  }
+
+  .text-content {
+    width: 800px;
+  }
+}
