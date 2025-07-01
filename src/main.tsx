@@ -6,6 +6,7 @@ import Home from "./Components/Home/Home.tsx";
 import AboutCard from "./Components/AboutCard/AboutCard.tsx";
 import Partniors from "./Components/Home/Partniors/Partniors.tsx";
 import BecomeAPartner from "./Components/BecomeAPartner/BecomeAPartner.tsx";
+import AboutDiscounts from "./Components/AboutDiscounts/AboutDiscounts.tsx";
 
 const router = createBrowserRouter([
   {
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
       {
         path: "/new-partner",
         element: <BecomeAPartner />,
+      },
+      {
+        path: "/new-link",
+        element: <AboutDiscounts />,
       },
     ],
   },
