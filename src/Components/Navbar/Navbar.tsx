@@ -23,6 +23,10 @@ const navigation: navigation[] = [
     nav: "გახდი პარტნიორი",
     route: "/new-partner",
   },
+  {
+    nav: "New Link",
+    route: "/new-link",
+  },
 ];
 
 const Navbar = () => {
@@ -93,21 +97,18 @@ const Navbar = () => {
               initial={{ opacity: 1, y: -300 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -100 }}
-              transition={{ duration: 0.15 }}
-            >
+              transition={{ duration: 0.15 }}>
               <motion.nav
                 initial={{ opacity: 1, y: -100 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -100 }}
-                transition={{ duration: 0.2 }}
-              >
+                transition={{ duration: 0.2 }}>
                 <ul className="routes-list">
                   {navigation.map((item, index) => (
                     <li
                       key={index}
                       className="routes"
-                      onClick={() => setDisplayMenu(false)}
-                    >
+                      onClick={() => setDisplayMenu(false)}>
                       <Link style={{ all: "unset" }} to={item.route}>
                         {item.nav}
                       </Link>
