@@ -3,7 +3,7 @@ const router = express.Router();
 const multer = require("multer");
 const {
   AddPartner,
-  GetAllPartners,
+  GetPartnerById,
   LoadPartnerPreview,
 } = require("../../controllers/Partners/partnerController");
 
@@ -11,7 +11,7 @@ const {
 const storage = multer.memoryStorage();
 const upload = multer({ storage });
 
-router.post("/partners", GetAllPartners);
+router.post("/getPartnerById", GetPartnerById);
 
 // ⬇️ This handles multipart/form-data with "images"
 router.post("/addPartner", upload.array("images", 10), AddPartner);

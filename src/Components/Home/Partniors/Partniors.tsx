@@ -1,69 +1,38 @@
 import React, { useEffect, useState } from "react";
-import Slider from "react-slick";
 import axios from "axios";
 import "./Partniors.css";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+import { useNavigate } from "react-router-dom";
 
 interface Partner {
   id: string;
   imageUrl: string;
-  alt: string;
+  companyName: string;
+  description: string;
 }
 
 type RawPartner = {
   _id: string;
   images: string[];
   companyName: string;
+  description?: string;
 };
-
-interface ArrowProps {
-  className?: string;
-  style?: React.CSSProperties;
-  onClick?: () => void;
-}
-
-const NextArrow: React.FC<ArrowProps> = ({ className, style, onClick }) => (
-  <div className={className} style={{ ...style }} onClick={onClick}>
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="32"
-      height="32"
-      viewBox="0 0 32 32"
-    >
-      <path d="M11.438 21.813l6.125-6.125-6.125-6.125 1.875-1.875 8 8-8 8z"></path>
-    </svg>
-  </div>
-);
-
-const PrevArrow: React.FC<ArrowProps> = ({ className, style, onClick }) => (
-  <div className={className} style={{ ...style }} onClick={onClick}>
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="32"
-      height="32"
-      viewBox="0 0 32 32"
-    >
-      <path d="M20.563 21.438l-1.875 1.875-8-8 8-8 1.875 1.875-6.125 6.125z"></path>
-    </svg>
-  </div>
-);
 
 const Partniors: React.FC = () => {
   const [partners, setPartners] = useState<Partner[]>([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchPartners = async () => {
       try {
-        const res = await axios.post("https://easyway-fmdo.onrender.com/loadPartners");
-        const formatted = (res.data.partners as RawPartner[]).map(
-          (p: RawPartner) => ({
+        const res = await axios.post("http://localhost:5000/loadPartners");
+        const formatted: Partner[] = (res.data.partners as RawPartner[]).map(
+          (p) => ({
             id: p._id,
             imageUrl: p.images?.[0] || "",
-            alt: p.companyName,
+            companyName: p.companyName,
+            description: p.description || "",
           })
         );
-        console.log("Raw partners:", res.data.partners);
 
         setPartners(formatted);
       } catch (err) {
@@ -74,24 +43,6 @@ const Partniors: React.FC = () => {
     fetchPartners();
   }, []);
 
-  const settings = {
-    dots: false,
-    infinite: false,
-    speed: 500,
-    slidesToShow: 6,
-    slidesToScroll: 1,
-    autoplay: true,
-    autoplaySpeed: 3000,
-    cssEase: "linear",
-    nextArrow: <NextArrow />,
-    prevArrow: <PrevArrow />,
-    responsive: [
-      { breakpoint: 1024, settings: { slidesToShow: 4 } },
-      { breakpoint: 600, settings: { slidesToShow: 3 } },
-      { breakpoint: 480, settings: { slidesToShow: 2 } },
-    ],
-  };
-
   return (
     <div className="partners-section">
       <div className="partners-header">
@@ -101,24 +52,24 @@ const Partniors: React.FC = () => {
           ფასდაკლება.
         </p>
       </div>
-      <div className="slider-container">
-        <Slider {...settings}>
-          {partners.map((partner) => (
-            <div key={partner.id} className="partner-slide">
-              <figure className="partner-figure">
-                {partner.imageUrl ? (
-                  <img
-                    src={partner.imageUrl}
-                    alt={partner.alt}
-                    className="partner-logo"
-                  />
-                ) : (
-                  <div className="partner-logo placeholder">No Image</div> // Optional fallback
-                )}
-              </figure>
-            </div>
-          ))}
-        </Slider>
+
+      <div className="partners-list">
+        {partners.map((partner) => (
+          <div
+            key={partner.id}
+            className="partners-card"
+            onClick={() => navigate(`/partners/${partner.id}`)} // ✅ click to navigate
+            style={{ cursor: "pointer" }}
+          >
+            <img
+              src={partner.imageUrl}
+              alt={partner.companyName}
+              className="partner-logo"
+            />
+            <p>{partner.companyName}</p>
+            <p>{partner.description}</p>
+          </div>
+        ))}
       </div>
     </div>
   );

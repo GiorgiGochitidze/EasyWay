@@ -1,24 +1,27 @@
 const Partner = require("../../models/Partners/Partner");
 const { generateUniqueCompanyId } = require("../../utils/generateId");
 const cloudinary = require("cloudinary").v2;
-const bcrypt = require("bcrypt");
-const saltRounds = 10;
 
-exports.GetAllPartners = async (req, res) => {
+exports.GetPartnerById = async (req, res) => {
   try {
-    const partners = await Partner.find();
-    res.status(200).json({
-      message: "პარტნიორი კომპანიები წარმატებით ჩაიტვირთა",
-      partners,
-    });
+    const { id } = req.body;
+
+    if (!id) {
+      return res.status(400).json({ message: "გთხოვთ მიუთითოთ პარტნიორის ID" });
+    }
+
+    const partner = await Partner.findById(id);
+
+    if (!partner) {
+      return res.status(404).json({ message: "პარტნიორი ვერ მოიძებნა" });
+    }
+
+    res.status(200).json({ partner });
   } catch (err) {
-    console.error("შეცდომა პარტნიორი კომპანიების ჩატვირთვისას:", err);
-    res
-      .status(500)
-      .json({ message: "შიდა შეცდომა პარტნიორი კომპანიების მიღებისას" });
+    console.error("Partner fetch error:", err);
+    res.status(500).json({ message: "შიდა შეცდომა პარტნიორის მოპოვებისას" });
   }
 };
-
 exports.AddPartner = async (req, res) => {
   try {
     const { companyName, description, location, phone } = req.body;

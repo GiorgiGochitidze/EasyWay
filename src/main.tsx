@@ -27,6 +27,9 @@ const AddPartner = React.lazy(
 const Terms = React.lazy(
   () => import("./Components/TermsAndConditions/Terms.tsx")
 );
+const PartnerDetail = React.lazy(
+  () => import("./Components/Home/Partniors/PartnerDetail.tsx")
+);
 
 const router = createBrowserRouter([
   {
@@ -69,6 +72,10 @@ const router = createBrowserRouter([
       {
         path: "/Terms&Conditions",
         element: <Terms />,
+      },
+      {
+        path: "/partners/:id",
+        element: <PartnerDetail />,
       },
     ],
   },
