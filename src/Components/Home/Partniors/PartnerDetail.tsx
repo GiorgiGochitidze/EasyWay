@@ -21,7 +21,7 @@ const PartnerDetail = () => {
   useEffect(() => {
     const fetchPartner = async () => {
       try {
-        const res = await axios.post("http://localhost:5000/getPartnerById", {
+        const res = await axios.post("https://easyway-fmdo.onrender.com/getPartnerById", {
           id,
         });
         setPartner(res.data.partner);

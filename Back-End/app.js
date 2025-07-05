@@ -21,7 +21,7 @@ cloudinary.config({
 });
 
 mongoose
-  .connect(MongoLocal)
+  .connect(uri)
   .then(() => {
     console.log("Connected to MongoDB");
   })
@@ -32,10 +32,12 @@ mongoose
 const AuthRoute = require("./routes/UserRoutes/UserAuth");
 const addCard = require("./routes/Card/CardRoute");
 const loadPartners = require("./routes/Partners/PartnersRoute");
+const PaymentRouter = require("./routes/Payment/PaymentRouter");
 
 app.use("/", AuthRoute);
 app.use("/", addCard);
 app.use("/", loadPartners);
+app.use("/", PaymentRouter);
 
 app.listen(PORT, () => {
   console.log("Server is running on localhost:5000");

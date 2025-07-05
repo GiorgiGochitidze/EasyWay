@@ -24,7 +24,7 @@ const Partniors: React.FC = () => {
   useEffect(() => {
     const fetchPartners = async () => {
       try {
-        const res = await axios.post("http://localhost:5000/loadPartners");
+        const res = await axios.post("https://easyway-fmdo.onrender.com/loadPartners");
         const formatted: Partner[] = (res.data.partners as RawPartner[]).map(
           (p) => ({
             id: p._id,
