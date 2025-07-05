@@ -11,11 +11,6 @@ type FormDataTypes = {
   password: string;
 };
 
-type BogLink = {
-  rel: string;
-  href: string;
-};
-
 const SignUp = () => {
   const [msg, setMsg] = useState<string>("");
   const navigate = useNavigate();
@@ -36,6 +31,7 @@ const SignUp = () => {
 
     try {
       setMsg("გადამისამართება ბანკზე...");
+      console.log("Sending request to backend...");
 
       // Save user data temporarily
       localStorage.setItem(
@@ -56,16 +52,13 @@ const SignUp = () => {
 
       console.log("BOG order response:", response.data);
 
-      const links: BogLink[] | undefined = response.data?.links;
+      const redirectUrl: string | undefined = response.data?._links?.redirect?.href;
 
-      if (Array.isArray(links)) {
-        const redirectUrl = links.find((l) => l.rel === "approve")?.href;
-        if (redirectUrl) {
-          window.location.href = redirectUrl;
-        } else {
-          setMsg("ბანკის გადამისამართების ბმული ვერ მოიძებნა");
-        }
+      if (redirectUrl) {
+        console.log("Redirecting to BOG payment page:", redirectUrl);
+        window.location.href = redirectUrl;
       } else {
+        console.log("Redirect URL not found in response");
         setMsg("ბანკის გადამისამართების ბმული ვერ მოიძებნა");
       }
     } catch (error) {
