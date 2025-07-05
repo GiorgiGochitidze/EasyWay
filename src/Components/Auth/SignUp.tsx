@@ -17,7 +17,7 @@ type BogLink = {
 };
 
 const SignUp = () => {
-  const [msg, setMsg] = useState<string>(""); // ✅ actively used
+  const [msg, setMsg] = useState<string>("");
   const navigate = useNavigate();
   const { selectedPacket } = usePacket();
 
@@ -37,14 +37,14 @@ const SignUp = () => {
     try {
       setMsg("გადამისამართება ბანკზე...");
 
-      // 💾 Save user data temporarily
+      // Save user data temporarily
       localStorage.setItem(
         "pendingUser",
         JSON.stringify({ userName, email, password, selectedPacket })
       );
 
-      // 🧾 Create BOG order
-      const response = await axios.post("https://easyway-fmdo.onrender.com/create-order", {
+      // Create BOG order
+      const response = await axios.post("http://localhost:5000/create-order", {
         product_id: selectedPacket.type,
         product_name: selectedPacket.type,
         total_amount: parseFloat(selectedPacket.price.replace(/[^\d.]/g, "")),
@@ -54,23 +54,36 @@ const SignUp = () => {
         price: selectedPacket.price,
       });
 
-      const links: BogLink[] = response.data.links;
-      const redirectUrl = links.find((l) => l.rel === "approve")?.href;
+      console.log("BOG order response:", response.data);
 
-      if (redirectUrl) {
-        window.location.href = redirectUrl;
+      const links: BogLink[] | undefined = response.data?.links;
+
+      if (Array.isArray(links)) {
+        const redirectUrl = links.find((l) => l.rel === "approve")?.href;
+        if (redirectUrl) {
+          window.location.href = redirectUrl;
+        } else {
+          setMsg("ბანკის გადამისამართების ბმული ვერ მოიძებნა");
+        }
       } else {
         setMsg("ბანკის გადამისამართების ბმული ვერ მოიძებნა");
       }
     } catch (error) {
-      console.error("Payment initiation error:", error);
+      if (axios.isAxiosError(error)) {
+        console.error(
+          "Payment initiation error:",
+          error.response?.data || error.message
+        );
+      } else {
+        console.error("Unknown error:", error);
+      }
       setMsg("დაფიქსირდა შეცდომა გადახდის წამოწყებისას");
     }
   };
 
   return (
     <div className="auth-container">
-      <Form handleAuth={handleSignUp} msg={msg} authType={"SignUp"} />
+      <Form handleAuth={handleSignUp} msg={msg} authType="SignUp" />
     </div>
   );
 };
