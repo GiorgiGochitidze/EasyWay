@@ -18,12 +18,15 @@ exports.createPaymentOrder = async (req, res) => {
       product_name: `${type} - ${duration}`,
       total_amount: amount,
       quantity: 1,
-      userId
+      userId,
     });
 
     res.status(200).json(order);
   } catch (err) {
-    console.error("შეცდომა გადახდის შექმნისას:", err.response?.data || err.message);
+    console.error(
+      "შეცდომა გადახდის შექმნისას:",
+      err.response?.data || err.message
+    );
     res.status(500).json({ message: "შეცდომა გადახდის პროცესში" });
   }
 };
