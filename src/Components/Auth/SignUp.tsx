@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { usePacket } from "../../Hooks/PacketContext";
+import { useToken } from "../../Hooks/TokenContext";
 
 type FormDataTypes = {
   userName: string;
@@ -15,6 +16,7 @@ const SignUp = () => {
   const [msg, setMsg] = useState<string>("");
   const navigate = useNavigate();
   const { selectedPacket } = usePacket();
+  const { decoded } = useToken();
 
   useEffect(() => {
     if (!selectedPacket) {
@@ -40,19 +42,20 @@ const SignUp = () => {
       );
 
       // Create BOG order
-      const response = await axios.post("https://easyway-fmdo.onrender.com/create-order", {
-        product_id: selectedPacket.type,
-        product_name: selectedPacket.type,
-        total_amount: parseFloat(selectedPacket.price.replace(/[^\d.]/g, "")),
-        quantity: 1,
-        duration: selectedPacket.duration,
-        type: selectedPacket.type,
-        price: selectedPacket.price,
-      });
+      const response = await axios.post(
+        "https://easyway-fmdo.onrender.com/create-order",
+        {
+          duration: selectedPacket.duration,
+          type: selectedPacket.type,
+          price: selectedPacket.price.replace(/[^\d.]/g, ""),
+          userId: decoded?.id, // just a placeholder for now
+        }
+      );
 
       console.log("BOG order response:", response.data);
 
-      const redirectUrl: string | undefined = response.data?._links?.redirect?.href;
+      const redirectUrl: string | undefined =
+        response.data?._links?.redirect?.href;
 
       if (redirectUrl) {
         console.log("Redirecting to BOG payment page:", redirectUrl);
