@@ -44,7 +44,7 @@ const SignUp = () => {
       );
 
       // Create BOG order
-      const response = await axios.post("http://localhost:5000/create-order", {
+      const response = await axios.post("https://easyway-fmdo.onrender.com/create-order", {
         product_id: selectedPacket.type,
         product_name: selectedPacket.type,
         total_amount: parseFloat(selectedPacket.price.replace(/[^\d.]/g, "")),
