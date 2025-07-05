@@ -30,6 +30,12 @@ const Terms = React.lazy(
 const PartnerDetail = React.lazy(
   () => import("./Components/Home/Partniors/PartnerDetail.tsx")
 );
+const SuccessPayment = React.lazy(
+  () => import("./Components/Payment/SuccessPayment.tsx")
+);
+const FailPayment = React.lazy(
+  () => import("./Components/Payment/FailPayment.tsx")
+);
 
 const router = createBrowserRouter([
   {
@@ -76,6 +82,14 @@ const router = createBrowserRouter([
       {
         path: "/partners/:id",
         element: <PartnerDetail />,
+      },
+      {
+        path: "/success",
+        element: <SuccessPayment />,
+      },
+      {
+        path: "/fail",
+        element: <FailPayment />,
       },
     ],
   },

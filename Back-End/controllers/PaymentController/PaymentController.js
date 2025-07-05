@@ -1,14 +1,13 @@
 const createOrder = require("../../utils/bogPayment");
 
 exports.createPaymentOrder = async (req, res) => {
-  const { duration, price, type } = req.body;
+  const { duration, price, type, userId } = req.body;
 
-  if (!duration || !price || !type) {
+  if (!duration || !price || !type || !userId) {
     return res.status(400).json({ message: "ყველა ველი სავალდებულოა" });
   }
 
   try {
-    // robust: remove anything except numbers & dot
     const amount = parseFloat(price.replace(/[^\d.]/g, ""));
     if (isNaN(amount)) {
       return res.status(400).json({ message: "არასწორი თანხის ფორმატი" });
@@ -19,6 +18,7 @@ exports.createPaymentOrder = async (req, res) => {
       product_name: `${type} - ${duration}`,
       total_amount: amount,
       quantity: 1,
+      userId
     });
 
     res.status(200).json(order);

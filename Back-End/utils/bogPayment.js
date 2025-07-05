@@ -1,9 +1,10 @@
 const axios = require("axios");
+const BogPaymentToken = require("../models/BogPaymentToken");
 
 const CLIENT_ID = process.env.CLIENT_ID;
 const CLIENT_SECRET = process.env.CLIENT_SECRET;
 
-const getToken = async () => {
+const getToken = async (userId) => {
   try {
     const data = new URLSearchParams({ grant_type: "client_credentials" });
 
@@ -16,7 +17,15 @@ const getToken = async () => {
       }
     );
 
-    console.log("BOG createOrder response:", response.data);
+    console.log("BOG token response:", response.data);
+
+    // save raw token with userId in Mongo
+    await BogPaymentToken.create({
+      userId,
+      access_token: response.data.access_token,
+      expires_in: response.data.expires_in,
+      scope: response.data.scope,
+    });
 
     return response.data.access_token;
   } catch (error) {
@@ -33,9 +42,10 @@ const createOrder = async ({
   product_name,
   total_amount,
   quantity,
+  userId,
 }) => {
   try {
-    const token = await getToken();
+    const token = await getToken(userId);
 
     const orderId = `order_${product_id}_${Date.now()}`;
 
@@ -48,7 +58,7 @@ const createOrder = async ({
         basket: [
           {
             quantity,
-            unit_price: total_amount, // since quantity=1, unit_price=total_amount
+            unit_price: total_amount,
             product_id,
             product_name,
           },
