@@ -16,14 +16,24 @@ const getToken = async () => {
       }
     );
 
+    console.log("BOG createOrder response:", response.data);
+
     return response.data.access_token;
   } catch (error) {
-    console.error("Error fetching token:", error.response?.data || error.message);
+    console.error(
+      "Error fetching token:",
+      error.response?.data || error.message
+    );
     throw error;
   }
 };
 
-const createOrder = async ({ product_id, product_name, total_amount, quantity }) => {
+const createOrder = async ({
+  product_id,
+  product_name,
+  total_amount,
+  quantity,
+}) => {
   try {
     const token = await getToken();
 
@@ -38,7 +48,7 @@ const createOrder = async ({ product_id, product_name, total_amount, quantity })
         basket: [
           {
             quantity,
-            unit_price: total_amount,  // since quantity=1, unit_price=total_amount
+            unit_price: total_amount, // since quantity=1, unit_price=total_amount
             product_id,
             product_name,
           },
@@ -64,7 +74,10 @@ const createOrder = async ({ product_id, product_name, total_amount, quantity })
 
     return response.data;
   } catch (error) {
-    console.error("Error creating order:", error.response?.data || error.message);
+    console.error(
+      "Error creating order:",
+      error.response?.data || error.message
+    );
     throw error;
   }
 };
