@@ -6,7 +6,13 @@ const mongoose = require("mongoose");
 const cloudinary = require("cloudinary").v2;
 require("dotenv").config();
 
-app.use(cors());
+app.use(
+  cors({
+    origin: "https://easywaygeo.netlify.app",
+    credentials: true,
+  })
+);
+
 app.use(express.json());
 
 const DB_PASS = process.env.DB_USER_PASS;
