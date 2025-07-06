@@ -40,6 +40,16 @@ const SignUp = () => {
         "pendingUser",
         JSON.stringify({ userName, email, password, selectedPacket })
       );
+      console.log({
+        duration: selectedPacket?.duration,
+        type: selectedPacket?.type,
+        price: selectedPacket?.price.replace(/[^\d.]/g, ""),
+        userId: decoded?.id,
+        userName,
+        email,
+        password,
+        selectedPacket,
+      });
 
       // Create BOG order
       const response = await axios.post(

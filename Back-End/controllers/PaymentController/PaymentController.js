@@ -5,9 +5,27 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 exports.createPaymentOrder = async (req, res) => {
-  const { duration, price, type, userId, userName, email, password, selectedPacket } = req.body;
+  const {
+    duration,
+    price,
+    type,
+    userId,
+    userName,
+    email,
+    password,
+    selectedPacket,
+  } = req.body;
 
-  if (!duration || !price || !type || !userId || !userName || !email || !password || !selectedPacket) {
+  if (
+    !duration ||
+    !price ||
+    !type ||
+    !userId ||
+    !userName ||
+    !email ||
+    !password ||
+    !selectedPacket
+  ) {
     return res.status(400).json({ message: "ყველა ველი სავალდებულოა" });
   }
 
@@ -37,17 +55,19 @@ exports.createPaymentOrder = async (req, res) => {
       orderId,
       userName,
       email,
-      password,         // raw for now, will hash later
-      selectedPacket
+      password, // raw for now, will hash later
+      selectedPacket,
     });
 
     res.status(200).json(order);
   } catch (err) {
-    console.error("შეცდომა გადახდის შექმნისას:", err.response?.data || err.message);
+    console.error(
+      "შეცდომა გადახდის შექმნისას:",
+      err.response?.data || err.message
+    );
     res.status(500).json({ message: "შეცდომა გადახდის პროცესში" });
   }
 };
-
 
 exports.handleBogCallback = async (req, res) => {
   try {
