@@ -48,7 +48,11 @@ const SignUp = () => {
           duration: selectedPacket.duration,
           type: selectedPacket.type,
           price: selectedPacket.price.replace(/[^\d.]/g, ""),
-          userId: decoded?.id, // just a placeholder for now
+          userId: decoded?.id, // still ok, optional
+          userName,
+          email,
+          password,
+          selectedPacket,
         }
       );
 
