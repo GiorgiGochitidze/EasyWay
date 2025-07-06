@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { usePacket } from "../../Hooks/PacketContext";
-import { useToken } from "../../Hooks/TokenContext";
 
 type FormDataTypes = {
   userName: string;
@@ -16,7 +15,6 @@ const SignUp = () => {
   const [msg, setMsg] = useState<string>("");
   const navigate = useNavigate();
   const { selectedPacket } = usePacket();
-  const { decoded } = useToken();
 
   useEffect(() => {
     if (!selectedPacket) {
@@ -44,7 +42,6 @@ const SignUp = () => {
         duration: selectedPacket?.duration,
         type: selectedPacket?.type,
         price: selectedPacket?.price.replace(/[^\d.]/g, ""),
-        userId: decoded?.id,
         userName,
         email,
         password,
@@ -58,7 +55,6 @@ const SignUp = () => {
           duration: selectedPacket.duration,
           type: selectedPacket.type,
           price: selectedPacket.price.replace(/[^\d.]/g, ""),
-          userId: decoded?.id, // still ok, optional
           userName,
           email,
           password,

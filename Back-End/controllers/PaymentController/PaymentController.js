@@ -9,7 +9,6 @@ exports.createPaymentOrder = async (req, res) => {
     duration,
     price,
     type,
-    userId,
     userName,
     email,
     password,
@@ -20,7 +19,6 @@ exports.createPaymentOrder = async (req, res) => {
     !duration ||
     !price ||
     !type ||
-    !userId ||
     !userName ||
     !email ||
     !password ||
@@ -41,7 +39,6 @@ exports.createPaymentOrder = async (req, res) => {
       product_name: `${type} - ${duration}`,
       total_amount: amount,
       quantity: 1,
-      userId,
     });
 
     // extract orderId from what you set as external_order_id
