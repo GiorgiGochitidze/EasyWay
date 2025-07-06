@@ -62,10 +62,10 @@ exports.handleBogCallback = async (req, res) => {
     const callbackData = req.body;
     console.log("Received BOG callback:", callbackData);
 
-    const orderId = callbackData.external_order_id;
-    const paymentStatus = callbackData.status; // adjust if needed
+    const orderId = callbackData.body?.external_order_id;
+    const paymentStatus = callbackData.body?.order_status?.key; // e.g., "completed"
 
-    if (paymentStatus === "Succeeded") {
+    if (paymentStatus === "completed") {
       const pending = await PendingRegistration.findOne({ orderId });
       if (!pending) {
         return res.status(404).send("Pending registration not found");
@@ -92,12 +92,12 @@ exports.handleBogCallback = async (req, res) => {
         { expiresIn: "7d" }
       );
 
-      console.log("User created after successful payment:", newUser.email);
+      console.log("✅ User created after successful payment:", newUser.email);
       await PendingRegistration.deleteOne({ orderId });
 
       return res.status(200).send("User created successfully");
     } else {
-      console.log("Payment not successful");
+      console.log("Payment not successful, status:", paymentStatus);
       res.status(200).send("Payment failed or not completed");
     }
   } catch (err) {
