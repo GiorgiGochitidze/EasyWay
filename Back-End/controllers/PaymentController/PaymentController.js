@@ -1,5 +1,5 @@
 const createOrder = require("../../utils/bogPayment");
-const PendingRegistration = require("../../models/User/PendingRegistration");
+const PendingRegistration = require("../../models/Payment/PendingRegistration");
 const User = require("../../models/User/User");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
