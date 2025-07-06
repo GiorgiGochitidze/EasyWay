@@ -42,10 +42,9 @@ const createOrder = async ({
   product_name,
   total_amount,
   quantity,
-  userId,
 }) => {
   try {
-    const token = await getToken(userId);
+    const token = await getToken();
 
     const orderId = `order_${product_id}_${Date.now()}`;
 
@@ -56,12 +55,7 @@ const createOrder = async ({
         currency: "GEL",
         total_amount,
         basket: [
-          {
-            quantity,
-            unit_price: total_amount,
-            product_id,
-            product_name,
-          },
+          { quantity, unit_price: total_amount, product_id, product_name },
         ],
       },
       redirect_urls: {
@@ -82,7 +76,7 @@ const createOrder = async ({
       }
     );
 
-    return response.data;
+    return { orderResponse: response.data, orderId };
   } catch (error) {
     console.error(
       "Error creating order:",
