@@ -1,7 +1,5 @@
+import { FaFacebook, FaInstagram, FaTiktok } from "react-icons/fa";
 import "./CSS/Home.css";
-import fb from "/img/colored-logo (1).png";
-import insta from "/img/colored-logo.png";
-import tiktok from "/img/colored-logo (2).png";
 import { Link } from "react-router-dom";
 
 const Home = () => {
@@ -23,25 +21,25 @@ const Home = () => {
         </div>
         <div className="soc">
           <a
-            href="https://facebook.com"
+            href="https://www.facebook.com/profile.php?id=61572616679579"
             target="_blank"
             rel="noopener noreferrer"
           >
-            <img className="fb" src={fb} alt="Facebook" />
+            <FaFacebook fill="#43518c" size={18} />
           </a>
           <a
-            href="https://instagram.com"
+            href="https://www.instagram.com/easy.way9666/?next=%2Freels%2FDBV7QOwuN3s%2F"
             target="_blank"
             rel="noopener noreferrer"
           >
-            <img className="insta" src={insta} alt="Instagram" />
+            <FaInstagram fill="#43518c" size={18} />
           </a>
           <a
-            href="https://tiktok.com"
+            href="https://www.tiktok.com/@easyway4690"
             target="_blank"
             rel="noopener noreferrer"
           >
-            <img className="tiktok" src={tiktok} alt="TikTok" />
+            <FaTiktok fill="#43518c" size={18} />
           </a>
         </div>
       </div>
