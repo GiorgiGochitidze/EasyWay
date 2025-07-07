@@ -6,24 +6,17 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 // Your generate functions
-const generate8DigitId = () => {
-  return Math.floor(10000000 + Math.random() * 90000000).toString();
-};
-
+const generate8DigitId = () =>
+  Math.floor(10000000 + Math.random() * 90000000).toString();
 const generateUniqueCardId = async () => {
   let attempts = 0;
-  const maxAttempts = 20;
-
-  while (attempts < maxAttempts) {
+  while (attempts < 20) {
     const newId = generate8DigitId();
     const exists = await Card.findOne({ cardId: newId });
-
     if (!exists) return newId;
-
     attempts++;
   }
-
-  throw new Error("Unable to generate unique card ID after multiple attempts");
+  throw new Error("Unable to generate unique card ID");
 };
 
 exports.createPaymentOrder = async (req, res) => {
@@ -85,71 +78,65 @@ exports.handleBogCallback = async (req, res) => {
     console.log("Received BOG callback:", callbackData);
 
     const orderId = callbackData.body?.external_order_id;
-    const paymentStatus = callbackData.body?.order_status?.key; // e.g., "completed"
+    const paymentStatus = callbackData.body?.order_status?.key;
 
     if (paymentStatus === "completed") {
       const pending = await PendingRegistration.findOne({ orderId });
-      if (!pending) {
+      if (!pending)
         return res.status(404).send("Pending registration not found");
-      }
 
-      // ✅ create user
       const hashedPass = await bcrypt.hash(pending.password, 10);
       const newUser = new User({
         userName: pending.userName,
         email: pending.email,
         password: hashedPass,
         package: pending.selectedPacket,
-        cards: [], // will add card below
+        cards: [],
         role: "user",
       });
       await newUser.save();
 
-      // ✅ create card for this user
-      const cardId = await generateUniqueCardId();
+      // ✅ determine duration
+      let monthsToAdd = 1;
+      if (pending.selectedPacket.duration === "3 თვე") monthsToAdd = 3;
+      else if (pending.selectedPacket.duration === "6 თვე") monthsToAdd = 6;
+      else if (pending.selectedPacket.duration === "12 თვე") monthsToAdd = 12;
 
       const startDate = new Date();
-      // Example: add 1 month to startDate for endDate
       const endDate = new Date();
-      endDate.setMonth(endDate.getMonth() + 1);
+      endDate.setMonth(endDate.getMonth() + monthsToAdd);
+
+      const cardId = await generateUniqueCardId();
 
       const newCard = new Card({
         cardId,
         cardUser: newUser._id,
-        duration: pending.selectedPacket.duration, // e.g., "1 თვე"
+        duration: pending.selectedPacket.duration,
         startDate: startDate.toISOString(),
         endDate: endDate.toISOString(),
         partnerCompany: {
           companyName: "Default Company",
           companyId: "00000001",
         },
+        status: "active",
       });
       await newCard.save();
 
-      console.log("✅ Card created for new user:", newCard.cardId);
-
-      // ✅ (optional) update user's cards array
       newUser.cards.push(newCard._id);
       await newUser.save();
 
-      // ✅ create JWT
       const token = jwt.sign(
-        {
-          id: newUser._id,
-          userName: newUser.userName,
-          role: newUser.role,
-        },
+        { id: newUser._id, userName: newUser.userName, role: newUser.role },
         process.env.JWT_SECRET,
         { expiresIn: "7d" }
       );
 
-      console.log("✅ User created after successful payment:", newUser.email);
-
+      console.log("✅ User created:", newUser.email);
       await PendingRegistration.deleteOne({ orderId });
 
       return res.status(200).send("User and card created successfully");
     } else {
-      console.log("Payment not successful, status:", paymentStatus);
+      console.log("Payment not successful:", paymentStatus);
       res.status(200).send("Payment failed or not completed");
     }
   } catch (err) {

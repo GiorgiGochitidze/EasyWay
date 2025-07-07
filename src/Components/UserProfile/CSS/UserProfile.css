@@ -43,6 +43,11 @@
   background-size: cover;
 }
 
+.card-front,
+.card-back:hover {
+  cursor: pointer;
+}
+
 .card-upperPart {
   width: 100%;
   height: auto;

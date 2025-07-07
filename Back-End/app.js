@@ -6,6 +6,9 @@ const mongoose = require("mongoose");
 const cloudinary = require("cloudinary").v2;
 require("dotenv").config();
 
+
+const startCardExpirationJob = require("./jobs/CardExpirationJob");
+
 app.use(
   cors({
     origin: function (origin, callback) {
@@ -54,6 +57,8 @@ app.use("/", AuthRoute);
 app.use("/", addCard);
 app.use("/", loadPartners);
 app.use("/", PaymentRouter);
+
+startCardExpirationJob();
 
 app.listen(PORT, () => {
   console.log("Server is running on localhost:5000");

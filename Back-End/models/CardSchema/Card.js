@@ -1,10 +1,11 @@
+// models/CardSchema/Card.js
 const mongoose = require("mongoose");
 
 const CardSchema = new mongoose.Schema({
   cardId: {
     type: String,
     required: true,
-    unique: true, // ensures no duplicate card IDs
+    unique: true,
   },
   cardUser: {
     type: mongoose.Schema.Types.ObjectId,
@@ -29,9 +30,14 @@ const CardSchema = new mongoose.Schema({
       required: true,
     },
     companyId: {
-      type: String, // stored as string, but 8-digit number
+      type: String,
       required: true,
     },
+  },
+  status: {
+    type: String,
+    enum: ["active", "expired"],
+    default: "active",
   },
 });
 

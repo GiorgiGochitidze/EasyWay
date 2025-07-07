@@ -30,7 +30,7 @@ const Card = ({ card }: { card: CardType }) => {
         <div className="card-front">
           <div className="card-upperPart">
             <p>Easy Way</p>
-            <p>Discount Card</p>
+            <p>ფასდაკლების ბარათი</p>
           </div>
           <div className="card-bottomPart">
             <div className="discounts">
@@ -38,17 +38,13 @@ const Card = ({ card }: { card: CardType }) => {
               <p>20%</p>
               <p>30%</p>
             </div>
-            <p style={{ fontSize: "13px", textAlign: "center" }}>
-              {card.partnerCompany?.companyName || "პარტნიორი კომპანია"}
-            </p>
+            <p>ვადა: {card.duration}</p>
           </div>
         </div>
         <div className="card-back">
-          <h3>Special Offers</h3>
+          <h3>თქვენი ID:</h3>
           <ul>
-            <li>✓ Free Breakfast</li>
-            <li>✓ Late Checkout</li>
-            <li>✓ VIP Support</li>
+            <li>{card.cardId}</li>
           </ul>
         </div>
       </div>

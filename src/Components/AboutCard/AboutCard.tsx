@@ -7,16 +7,16 @@ export default function AboutCard() {
       <h1 className="title">აირჩიე სასურველი პაკეტი</h1>
       <section className="packets-container">
         <CardVersion
-        // 20₾
-          price="0.05₾"
+          // 20₾
+          price="20₾"
           duration="1 თვე"
           type="PREMIUM"
           shapeClass="shape"
           buttonClass="buy-button"
         />
         <CardVersion
-        // 180₾
-          price="0.10₾"
+          // 180₾
+          price="180₾"
           duration="1 წელი"
           type="BLACK GOLD"
           shapeClass="shape2"

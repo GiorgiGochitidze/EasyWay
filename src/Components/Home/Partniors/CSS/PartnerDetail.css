@@ -69,6 +69,7 @@
   margin: 0.5rem 0;
   font-size: 16px;
   line-height: 1.4;
+  text-align: left;
 }
 
 /* Modal styling - unchanged */
@@ -135,4 +136,24 @@
 
 .nav-btn.right {
   right: -60px;
+}
+
+@media screen and (max-width: 750px) {
+  .partner-detail-content {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .thumbnail-row {
+    justify-content: center;
+    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+  }
+
+  .info-section{
+    align-items: center;
+  }
+
+  .info-section p{
+    text-align: center;
+  }
 }

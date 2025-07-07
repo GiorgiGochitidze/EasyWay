@@ -68,8 +68,10 @@ const Partniors: React.FC = () => {
               alt={partner.companyName}
               className="partner-logo"
             />
-            <p>{partner.companyName}</p>
-            <p>{partner.description}</p>
+            <div className="partner-info">
+              <p className="partner-name">{partner.companyName}</p>
+              <p className="partner-description">{partner.description}</p>
+            </div>
           </div>
         ))}
       </div>
