@@ -36,6 +36,7 @@ const SuccessPayment = React.lazy(
 const FailPayment = React.lazy(
   () => import("./Components/Payment/FailPayment.tsx")
 );
+const TechWorks = React.lazy(() => import("./Components/TechWorks.tsx"));
 
 const router = createBrowserRouter([
   {
@@ -90,6 +91,10 @@ const router = createBrowserRouter([
       {
         path: "/fail",
         element: <FailPayment />,
+      },
+      {
+        path: "/TechWorks",
+        element: <TechWorks />,
       },
     ],
   },
