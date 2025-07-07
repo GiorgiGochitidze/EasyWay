@@ -96,7 +96,11 @@ nav {
   cursor: pointer;
 }
 
-@media screen and (max-width: 730px) {
+@media screen and (max-width: 772px) {
+  nav p {
+    display: none;
+  }
+
   .navItems-container {
     display: none;
   }

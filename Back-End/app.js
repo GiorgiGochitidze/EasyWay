@@ -8,10 +8,22 @@ require("dotenv").config();
 
 app.use(
   cors({
-    origin: "https://easywaygeo.netlify.app",
+    origin: function (origin, callback) {
+      const allowedOrigins = [
+        "https://easywaygeo.netlify.app",
+        "http://localhost:5173",
+      ];
+      // allow requests with no origin like mobile apps or curl
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
     credentials: true,
   })
 );
+
 app.options("*", cors());
 
 app.use(express.json());
