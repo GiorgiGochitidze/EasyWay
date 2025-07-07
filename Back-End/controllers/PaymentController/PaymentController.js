@@ -1,8 +1,30 @@
 const createOrder = require("../../utils/bogPayment");
 const PendingRegistration = require("../../models/Payment/PendingRegistration");
 const User = require("../../models/User/User");
+const Card = require("../../models/CardSchema/Card");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+
+// Your generate functions
+const generate8DigitId = () => {
+  return Math.floor(10000000 + Math.random() * 90000000).toString();
+};
+
+const generateUniqueCardId = async () => {
+  let attempts = 0;
+  const maxAttempts = 20;
+
+  while (attempts < maxAttempts) {
+    const newId = generate8DigitId();
+    const exists = await Card.findOne({ cardId: newId });
+
+    if (!exists) return newId;
+
+    attempts++;
+  }
+
+  throw new Error("Unable to generate unique card ID after multiple attempts");
+};
 
 exports.createPaymentOrder = async (req, res) => {
   const { duration, price, type, userName, email, password, selectedPacket } =
@@ -71,17 +93,46 @@ exports.handleBogCallback = async (req, res) => {
         return res.status(404).send("Pending registration not found");
       }
 
+      // ✅ create user
       const hashedPass = await bcrypt.hash(pending.password, 10);
       const newUser = new User({
         userName: pending.userName,
         email: pending.email,
         password: hashedPass,
         package: pending.selectedPacket,
-        cards: [],
+        cards: [], // will add card below
         role: "user",
       });
       await newUser.save();
 
+      // ✅ create card for this user
+      const cardId = await generateUniqueCardId();
+
+      const startDate = new Date();
+      // Example: add 1 month to startDate for endDate
+      const endDate = new Date();
+      endDate.setMonth(endDate.getMonth() + 1);
+
+      const newCard = new Card({
+        cardId,
+        cardUser: newUser._id,
+        duration: pending.selectedPacket.duration, // e.g., "1 თვე"
+        startDate: startDate.toISOString(),
+        endDate: endDate.toISOString(),
+        partnerCompany: {
+          companyName: "Default Company",
+          companyId: "00000001",
+        },
+      });
+      await newCard.save();
+
+      console.log("✅ Card created for new user:", newCard.cardId);
+
+      // ✅ (optional) update user's cards array
+      newUser.cards.push(newCard._id);
+      await newUser.save();
+
+      // ✅ create JWT
       const token = jwt.sign(
         {
           id: newUser._id,
@@ -93,9 +144,10 @@ exports.handleBogCallback = async (req, res) => {
       );
 
       console.log("✅ User created after successful payment:", newUser.email);
+
       await PendingRegistration.deleteOne({ orderId });
 
-      return res.status(200).send("User created successfully");
+      return res.status(200).send("User and card created successfully");
     } else {
       console.log("Payment not successful, status:", paymentStatus);
       res.status(200).send("Payment failed or not completed");
