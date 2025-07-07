@@ -98,9 +98,9 @@ exports.handleBogCallback = async (req, res) => {
 
       // ✅ determine duration
       let monthsToAdd = 1;
-      if (pending.selectedPacket.duration === "3 თვე") monthsToAdd = 3;
+      if (pending.selectedPacket.duration === "1 თვე") monthsToAdd = 1;
       else if (pending.selectedPacket.duration === "6 თვე") monthsToAdd = 6;
-      else if (pending.selectedPacket.duration === "12 თვე") monthsToAdd = 12;
+      else if (pending.selectedPacket.duration === "1 წელი") monthsToAdd = 12;
 
       const startDate = new Date();
       const endDate = new Date();
