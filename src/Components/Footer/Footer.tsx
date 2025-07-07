@@ -13,17 +13,17 @@ const Footer = () => {
             <h4>კომპანია</h4>
             <ul>
               <li>
-                <Link style={LinkStyles} to="/Blog">
+                <Link style={LinkStyles} to="/TechWorks">
                   <p>ბლოგი</p>
                 </Link>
               </li>
               <li>
-                <Link style={LinkStyles} to="/AboutUs">
+                <Link style={LinkStyles} to="/TechWorks">
                   <p>ჩვენს შესახებ</p>
                 </Link>
               </li>
               <li>
-                <Link style={LinkStyles} to="/Services">
+                <Link style={LinkStyles} to="/packets">
                   <p>ჩვენი სერვისები</p>
                 </Link>
               </li>
@@ -33,12 +33,12 @@ const Footer = () => {
             <h4>დახმარება</h4>
             <ul>
               <li>
-                <Link style={LinkStyles} to="/Faq">
+                <Link style={LinkStyles} to="/TechWorks">
                   <p>ხშირად დასმული კითხვები</p>
                 </Link>
               </li>
               <li>
-                <Link style={LinkStyles} to="/ContactUs">
+                <Link style={LinkStyles} to="/TechWorks">
                   <p>დაგვიკავშირდით</p>
                 </Link>
               </li>
