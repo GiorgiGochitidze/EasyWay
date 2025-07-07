@@ -6,7 +6,6 @@ const mongoose = require("mongoose");
 const cloudinary = require("cloudinary").v2;
 require("dotenv").config();
 
-
 const startCardExpirationJob = require("./jobs/CardExpirationJob");
 
 app.use(

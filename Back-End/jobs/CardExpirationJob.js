@@ -1,4 +1,3 @@
-// jobs/cardExpirationJob.js
 const cron = require("node-cron");
 const Card = require("../models/CardSchema/Card");
 
