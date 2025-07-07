@@ -1,10 +1,4 @@
-import {
-  FaFacebookF,
-  FaInstagram,
-  FaPhone,
-  FaTiktok,
-  FaYoutube,
-} from "react-icons/fa";
+import { FaFacebookF, FaInstagram, FaPhone, FaTiktok } from "react-icons/fa";
 import "./CSS/Footer.css";
 import { Link } from "react-router-dom";
 import LinkStyles from "../LinkStyles";
@@ -63,19 +57,21 @@ const Footer = () => {
           <div style={{ width: "auto" }} className="footerCol">
             <h4>სოციალური ქსელები</h4>
             <div className="socialLinks">
-              <a target="_blank" href="https://www.facebook.com/LasarStudio">
+              <a
+                target="_blank"
+                href="https://www.facebook.com/profile.php?id=61572616679579"
+              >
                 <FaFacebookF size={30} fill="black" />
               </a>
 
-              <a target="_blank" href="https://www.youtube.com/@LasarStudio">
-                <FaYoutube size={30} fill="black" />
-              </a>
-
-              <a target="_blank" href="https://www.tiktok.com/@lasarstudio">
+              <a target="_blank" href="https://www.tiktok.com/@easyway4690">
                 <FaTiktok size={30} fill="black" />
               </a>
 
-              <a target="_blank" href="https://www.tiktok.com/@lasarstudio">
+              <a
+                target="_blank"
+                href="https://www.instagram.com/easy.way9666/?next=%2Freels%2FDBV7QOwuN3s%2F"
+              >
                 <FaInstagram fill="black" size={30} />
               </a>
             </div>
