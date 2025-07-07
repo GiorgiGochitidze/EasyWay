@@ -2,17 +2,56 @@ import "./CSS/BecomeAPartner.css";
 import { useMediaQuery } from "react-responsive";
 import { useState } from "react";
 import errorIcon from "/img/icons8-error-30.png";
+
 export default function BecomeAPartner() {
   const [error, setError] = useState("");
   const isTabletOrMobile = useMediaQuery({ query: "(max-width: 1224px)" });
-  const handleSubmit = () => {
-    const inputEl = document.querySelector(
+
+  const handleSubmit = async () => {
+    const nameEl = document.querySelectorAll(
       ".infoInput"
-    ) as HTMLInputElement | null;
-    if (!inputEl || !inputEl.value.trim()) {
+    )[0] as HTMLInputElement | null;
+    const contactEl = document.querySelectorAll(
+      ".infoInput"
+    )[1] as HTMLInputElement | null;
+    const descEl = document.querySelector(
+      ".infodescription"
+    ) as HTMLTextAreaElement | null;
+
+    if (!nameEl?.value.trim() || !contactEl?.value.trim()) {
       setError("field cannot be empty");
-    } else {
-      setError("");
+      return;
+    }
+
+    setError(""); // clear previous error
+
+    // Build form data
+    const formData = new FormData();
+    formData.append("access_key", "edc74257-40b7-4d2e-8ae2-76c74ca476e7");
+    formData.append("companyName", nameEl.value);
+    formData.append("contact", contactEl.value);
+    formData.append("description", descEl?.value || "");
+
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: formData,
+      });
+      const data = await response.json();
+
+      if (data.success) {
+        alert("შეტყობინება წარმატებით გაიგზავნა!"); // show success
+        // Optionally clear fields
+        nameEl.value = "";
+        contactEl.value = "";
+        if (descEl) descEl.value = "";
+      } else {
+        console.log("Error:", data);
+        setError(data.message || "გაგზავნის შეცდომა");
+      }
+    } catch (error) {
+      console.error("Submission error:", error);
+      setError("ვერ მოხერხდა გაგზავნა, სცადეთ ხელახლა.");
     }
   };
 
