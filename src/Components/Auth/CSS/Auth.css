@@ -13,3 +13,12 @@
 .auth-container h1 {
   font-family: "georgian";
 }
+
+/* Responsive Styles */
+
+@media screen and (max-width: 665px) {
+  .auth-container {
+    height: auto;
+    padding-block: 30px;
+  }
+}

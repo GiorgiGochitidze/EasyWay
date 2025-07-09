@@ -78,12 +78,22 @@
 
 /* Responsive Styles */
 
-@media screen and (max-width: 520px) {
+@media screen and (max-width: 850px) {
   .form-container {
-    width: 90%;
+    width: 95%;
+    height: 400px;
   }
 
   .form-container p {
     text-align: center;
+  }
+}
+@media screen and (max-width: 665px) {
+  .form-container img{
+    display: none;
+  }
+
+  .form-part{
+    width: 100%;
   }
 }
