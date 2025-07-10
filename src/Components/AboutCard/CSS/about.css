@@ -4,11 +4,12 @@
       rgba(215, 255, 249, 0.21)
     ),
     url(https://static.rfstat.com/renderforest/images/website_maker_images/components/component-images/pricing7-1.0.0.jpeg);
-  padding: 40px 15px;
   display: flex;
   flex-direction: column;
   gap: 50px;
-  min-height: 100vh;
+  min-height: calc(100vh - 80px);
+  margin-top: 80px;
+  padding-block: 30px;
 }
 
 .title {
@@ -128,7 +129,6 @@
       url("https://static.rfstat.com/renderforest/images/website_maker_images/components/component-images/pricing7-1.0.0.jpeg")
         center center / cover no-repeat;
     gap: 100px;
-    padding: 90px;
   }
 
   .packets-container {

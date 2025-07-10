@@ -89,11 +89,11 @@
   }
 }
 @media screen and (max-width: 665px) {
-  .form-container img{
+  .form-container img {
     display: none;
   }
 
-  .form-part{
+  .form-part {
     width: 100%;
   }
 }
