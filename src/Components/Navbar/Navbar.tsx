@@ -4,11 +4,13 @@ import EasyWayLogo from "../../assets/easyWayLogo.jpeg";
 import { Link, useNavigate } from "react-router-dom";
 import { useToken } from "../../Hooks/TokenContext";
 import Cookie from "js-cookie";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { FaRegUser } from "react-icons/fa";
 import { motion } from "framer-motion";
 import LinkStyles from "../LinkStyles";
 import { BiMenu } from "react-icons/bi";
+import { IoMdMoon, IoIosSunny } from "react-icons/io";
+import { ThemeContext } from "../../Hooks/ThemeContext";
 import Menu from "./Menu";
 
 const navigation: navigation[] = [
@@ -36,6 +38,12 @@ const Navbar = () => {
   const [profileMenu, setProfileMenu] = useState<boolean>(false);
   const [menu, setMenu] = useState<boolean>(false);
 
+  const theme = useContext(ThemeContext);
+  if (!theme) {
+    throw new Error("ThemeContext.Provider is missing");
+  }
+  const { isDark, setIsDark } = theme;
+
   const handleLogout = () => {
     Cookie.remove("userAuthToken");
     navigate("/SignIn");
@@ -44,7 +52,7 @@ const Navbar = () => {
 
   return (
     <>
-      <header>
+      <header className={isDark ? "dark" : ""}>
         <nav>
           <div className="logo-image-container">
             <img width={"50px"} height={"50px"} src={EasyWayLogo} alt="Logo" />
@@ -59,9 +67,28 @@ const Navbar = () => {
             }}
           >
             <div className="navItems-container">
+              <button
+                onClick={() => setIsDark(!isDark)}
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  background: "transparent",
+                  border: "none",
+                  fontSize: "25px",
+                  cursor: "pointer",
+                  color: isDark ? "white" : "yellow",
+                }}
+              >
+                {isDark ? <IoMdMoon /> : <IoIosSunny />}
+              </button>
               {navigation.map((navItems, index) => (
                 <Link
-                  style={{ textDecoration: "none", color: "black" }}
+                  style={{
+                    textDecoration: "none",
+                    color: isDark ? "#F8FAFC" : "black",
+                    transition: "color 0.2s ease-in-out",
+                  }}
                   to={navItems.route}
                   key={index}
                 >
@@ -117,7 +144,11 @@ const Navbar = () => {
               </div>
             ) : (
               <Link
-                style={{ textDecoration: "none", color: "black" }}
+                style={{
+                  textDecoration: "none",
+                  color: isDark ? "#F8FAFC" : "black",
+                  transition: "color 0.2s ease-in-out",
+                }}
                 to="/SignIn"
               >
                 <p>შესვლა</p>

@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import "./Partniors.css";
 import { useNavigate } from "react-router-dom";
+import { ThemeContext } from "../../../Hooks/ThemeContext";
 
 interface Partner {
   id: string;
@@ -20,6 +21,12 @@ type RawPartner = {
 const Partniors: React.FC = () => {
   const [partners, setPartners] = useState<Partner[]>([]);
   const navigate = useNavigate();
+
+  const theme = useContext(ThemeContext);
+  if (!theme) {
+    throw new Error("ThemeContext.Provider is missing");
+  }
+  const { isDark } = theme;
 
   useEffect(() => {
     const fetchPartners = async () => {
@@ -46,7 +53,7 @@ const Partniors: React.FC = () => {
   }, []);
 
   return (
-    <div className="partners-section">
+    <div className={`partners-section ${isDark ? "dark" : ""}`}>
       <div className="partners-header">
         <h1 className="partners-title">ჩვენი პარტნიორები</h1>
         <p className="partners-description">
@@ -59,7 +66,7 @@ const Partniors: React.FC = () => {
         {partners.map((partner) => (
           <div
             key={partner.id}
-            className="partners-card"
+            className={`partners-card ${isDark ? "dark" : ""}`}
             onClick={() => navigate(`/partners/${partner.id}`)} // ✅ click to navigate
             style={{ cursor: "pointer" }}
           >

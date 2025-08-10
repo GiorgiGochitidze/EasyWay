@@ -12,8 +12,11 @@
   bottom: 0;
   white-space: pre-line;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  transition: background 0.2s ease-in-out;
 }
-
+.footer.dark {
+  background-color: rgb(22,24,28);
+}
 .sponsor {
   background-color: #1d1e21;
   margin-bottom: -70px;
@@ -25,8 +28,11 @@
 
 .footer h4 {
   font-family: "georgian", sans-serif;
+  transition: color 0.2s ease-in-out;
 }
-
+.footer h4.dark {
+  color: #f8fafc;
+}
 .footer-container {
   width: 100%;
   margin: auto;
@@ -36,7 +42,20 @@
   flex-wrap: wrap;
   justify-content: space-evenly;
   gap: 30px;
+  transition: color 0.2s ease-in-out;
 }
+.row.dark p {
+  color: #cbd5e1;
+}
+
+.row.dark p:hover {
+  color: #f8fafc;
+}
+
+.row.dark h4 {
+  color: #f8fafc;
+}
+
 ul {
   list-style: none;
 }
@@ -102,7 +121,13 @@ ul > li > p {
   align-items: center;
   text-align: center;
   font-family: "Lato", sans-serif;
+  transition: color 0.2s ease-in-out;
 }
+
+.copyright.dark{
+  color: #f8fafc;
+}
+
 
 /*responsive*/
 
