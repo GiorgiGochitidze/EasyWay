@@ -55,8 +55,8 @@ const Partniors: React.FC = () => {
   return (
     <div className={`partners-section ${isDark ? "dark" : ""}`}>
       <div className="partners-header">
-        <h1 className="partners-title">ჩვენი პარტნიორები</h1>
-        <p className="partners-description">
+        <h1 className={`partners-title ${isDark ? "dark" : ""}`}>ჩვენი პარტნიორები</h1>
+        <p className={`partners-description ${isDark ? "dark" : ""}`}>
           გახდი ჩვენი პარტნიორების მომხმარებელი და მიიღე ექსკლუზიური ულიმიტო
           ფასდაკლება.
         </p>
@@ -76,8 +76,8 @@ const Partniors: React.FC = () => {
               className="partner-logo"
             />
             <div className="partner-info">
-              <p className="partner-name">{partner.companyName}</p>
-              <p className="partner-description">{partner.description}</p>
+              <p className={`partner-name ${isDark ? "dark" : ""}`}>{partner.companyName}</p>
+              <p className={`partner-description ${isDark ? "dark" : ""}`}>{partner.description}</p>
             </div>
           </div>
         ))}

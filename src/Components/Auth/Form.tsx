@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import "./CSS/Form.css";
 import { Link } from "react-router-dom";
 import LinkStyles from "../LinkStyles";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import phoneVerified from "../../assets/smartPhoneVerified.jpg";
+import { ThemeContext } from "../../Hooks/ThemeContext";
 
 type FormDataTypes = {
   userName: string;
@@ -23,11 +24,19 @@ const Form = ({ authType, handleAuth, msg }: UserAuthTypes) => {
   const [password, setPassword] = useState<string>("");
   const [showPass, setShowPass] = useState<boolean>(false);
 
+  const theme = useContext(ThemeContext);
+  if (!theme) {
+    throw new Error("ThemeContext.Provider is missing");
+  }
+  const { isDark } = theme;
+
   return (
-    <div className="form-container">
+    <div className={`form-container ${isDark ? "dark" : ""}`}>
       <img width={"50%"} src={phoneVerified} alt="verified phone image" />
       <div className="form-part">
-        <h1>{authType == "SignIn" ? "შესვლა" : "რეგისტრაცია"}</h1>
+        <h1 className={isDark ? "dark" : ""}>
+          {authType == "SignIn" ? "შესვლა" : "რეგისტრაცია"}
+        </h1>
         {authType == "SignUp" && (
           <label htmlFor="userName">
             <input
@@ -37,6 +46,7 @@ const Form = ({ authType, handleAuth, msg }: UserAuthTypes) => {
               type="text"
               id="userName"
               name="userName"
+              className={isDark ? "dark" : ""}
             />
           </label>
         )}
@@ -48,18 +58,19 @@ const Form = ({ authType, handleAuth, msg }: UserAuthTypes) => {
             type="text"
             id="email"
             name="email"
+            className={isDark ? "dark" : ""}
           />
         </label>
         <label style={{ position: "relative" }} htmlFor="password">
           {showPass && (
             <FaRegEye
-              className="eye-icon"
+              className={`eye-icon ${isDark ? "dark" : ""}`}
               onClick={() => setShowPass(!showPass)}
             />
           )}
           {!showPass && (
             <FaRegEyeSlash
-              className="eye-icon"
+              className={`eye-icon ${isDark ? "dark" : ""}`}
               onClick={() => setShowPass(!showPass)}
             />
           )}
@@ -70,6 +81,7 @@ const Form = ({ authType, handleAuth, msg }: UserAuthTypes) => {
             type={showPass ? "text" : "password"}
             id="password"
             name="password"
+            className={isDark ? "dark" : ""}
             style={{ paddingLeft: "10px", paddingRight: "30px" }}
           />
         </label>
@@ -78,14 +90,31 @@ const Form = ({ authType, handleAuth, msg }: UserAuthTypes) => {
           {authType == "SignIn" ? "შესვლა" : "რეგისტრაცია"}
         </button>
         {authType == "SignIn" ? (
-          <p>
+          <p
+            style={{
+              color: isDark ? "#f8fafc" : "",
+              transition: "color 0.2s ease-in-out",
+            }}
+          >
             არ გაქვს აკაუნტი?{" "}
-            <Link style={LinkStyles} to="/SignUp">
+            <Link
+              style={{
+                ...LinkStyles,
+                color: isDark ? "#f8fafc" : "#000",
+                transition: "color 0.2s ease-in-out",
+              }}
+              to="/SignUp"
+            >
               დარეგისტრირდი
             </Link>
           </p>
         ) : (
-          <p>
+          <p
+            style={{
+              color: isDark ? "#f8fafc" : "",
+              transition: "color 0.2s ease-in-out",
+            }}
+          >
             გაქვს უკვე აკაუნტი?{" "}
             <Link style={LinkStyles} to="/SignIn">
               შესვლა

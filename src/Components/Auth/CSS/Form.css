@@ -11,6 +11,12 @@
   gap: 20px;
   background-color: white;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  transition: background 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.form-container.dark {
+  background-color: rgb(30, 32, 36);
+  box-shadow: rgba(119, 119, 119, 0.35) 0px 5px 15px;
 }
 
 .form-part {
@@ -25,6 +31,11 @@
 
 .form-part h1 {
   color: black;
+  transition: color 0.2s ease-in-out;
+}
+
+.form-part h1.dark {
+  color: #f8fafc;
 }
 
 .form-part > label {
@@ -45,6 +56,16 @@
   box-sizing: border-box;
   font-family: "georgian", sans-serif;
   box-shadow: inset rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+input.dark {
+  background-color: rgb(30, 32, 36);
+  transition: color 0.2s ease-in-out;
+}
+.form-part > label > input.dark::placeholder {
+  color: #cbd5e1;
+}
+.form-part > label > input.dark:focus {
+  color: #f8fafc;
 }
 
 .form-part > label > input:focus {
@@ -70,8 +91,12 @@
   right: 10px;
   top: 50%;
   transform: translateY(-50%);
+  transition: color 0.2s ease-in-out;
 }
 
+.eye-icon.dark {
+  color: #f8fafc;
+}
 .eye-icon:hover {
   cursor: pointer;
 }
