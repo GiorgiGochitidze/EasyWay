@@ -1,22 +1,46 @@
 import { FaFacebook, FaInstagram, FaTiktok } from "react-icons/fa";
 import "./CSS/Home.css";
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { LanguageContext } from "../../Hooks/LanguageContext";
+
+const translations = {
+  ge: {
+    title: "გახადე მარტივი ჩვენთან ერთად!",
+    minText: "შემოგვიერთდი ახლავე",
+    buyNow: "შეიძინე ახლავე",
+    partners: "პარტნიორები"
+  },
+  en: {
+    title: "Make it easy with us!",
+    minText: "Join us now",
+    buyNow: "Buy Now",
+    partners: "Partners"
+  }
+}
 
 const Home = () => {
+  const langCtx = useContext(LanguageContext);
+    if (!langCtx) throw new Error("LanguageContext.Provider is missing");
+    const { language } = langCtx;
+  
+    const t = translations[language];
+
+
   return (
     <main>
       <div className="centerText">
-        <h1 className="titleHome">გახადე მარტივი ჩვენთან ერთად!</h1>
-        <h6 className="minText">შემოგვიერთდი ახლავე</h6>
+        <h1 className="titleHome">{t.title}</h1>
+        <h6 className="minText">{t.minText}</h6>
       </div>
       <div className="buttonAndSocMedia">
         {" "}
         <div className="buttons">
           <Link to="/packets">
-            <button className="firstButtonn">შეიძინე ახლავე</button>
+            <button className="firstButtonn">{t.buyNow}</button>
           </Link>
           <Link to="/partners">
-            <button className="secondButtonn">პარტნიორები</button>
+            <button className="secondButtonn">{t.partners}</button>
           </Link>
         </div>
         <div className="soc">
