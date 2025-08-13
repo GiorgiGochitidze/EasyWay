@@ -1,5 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { usePacket } from "../../Hooks/PacketContext";
+import { useContext } from "react";
+import { LanguageContext } from "../../Hooks/LanguageContext";
 
 type CardProps = {
   price: string;
@@ -14,6 +16,15 @@ type choosenCard = {
   duration: string;
   type: string;
 };
+
+const translations = {
+  ge: {
+    buy: "პაკეტის შეძენა"
+  },
+  en: {
+    buy: "Buy Package"
+  }
+}
 
 const CardVersion = ({
   price,
@@ -30,6 +41,12 @@ const CardVersion = ({
     navigate("/SignUp");
   };
 
+  const langCtx = useContext(LanguageContext);
+  if (!langCtx) throw new Error("LanguageContext.Provider is missing");
+  const { language } = langCtx;
+
+  const t = translations[language];
+
   return (
     <div className="packet">
       <div style={{ textAlign: "center" }} className={shapeClass}>
@@ -41,7 +58,7 @@ const CardVersion = ({
           onClick={() => handleChooseCard({ price, duration, type })}
           className={buttonClass}
         >
-          პაკეტის შეძენა
+          {t.buy}
         </button>
       </div>
     </div>

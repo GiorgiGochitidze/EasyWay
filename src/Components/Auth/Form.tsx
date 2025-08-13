@@ -135,7 +135,7 @@ const Form = ({ authType, handleAuth, msg }: UserAuthTypes) => {
             <Link
               style={{
                 ...LinkStyles,
-                color: isDark ? "#f8fafc" : "#000",
+                color: isDark ? "#f8fafc" : "",
                 transition: "color 0.2s ease-in-out",
               }}
               to="/SignUp"
@@ -151,7 +151,14 @@ const Form = ({ authType, handleAuth, msg }: UserAuthTypes) => {
             }}
           >
             {t.haveAccount}{" "}
-            <Link style={LinkStyles} to="/SignIn">
+            <Link
+              style={{
+                ...LinkStyles,
+                color: isDark ? "#f8fafc" : "#000",
+                transition: "color 0.2s ease-in-out",
+              }}
+              to="/SignIn"
+            >
               {t.loginHere}
             </Link>
           </p>
