@@ -1,5 +1,4 @@
 import "./CSS/navbar.css";
-import type { navigation } from "./type";
 import EasyWayLogo from "../../assets/easyWayLogo.jpeg";
 import { Link, useNavigate } from "react-router-dom";
 import { useToken } from "../../Hooks/TokenContext";
@@ -14,36 +13,74 @@ import { ThemeContext } from "../../Hooks/ThemeContext";
 import Menu from "./Menu";
 import { LanguageContext } from "../../Hooks/LanguageContext";
 
-const navigation: navigation[] = [
-  {
-    nav: "მთავარი",
-    route: "/",
-  },
-  {
-    nav: "ბარათის შესახებ",
-    route: "/packets",
-  },
-  {
-    nav: "პარტნიორები",
-    route: "/partners",
-  },
-  {
-    nav: "გახდი პარტნიორი",
-    route: "/new-partner",
-  },
-];
+// ---------------- TYPES ----------------
+type NavItem = {
+  nav: string;
+  route: string;
+};
 
+type Navigation = {
+  ge: NavItem[];
+  en: NavItem[];
+};
+
+type Language = "ge" | "en";
+
+type LanguageContextType = {
+  language: Language;
+  toggleLanguage: () => void;
+};
+
+type DecodedToken = {
+  userName: string;
+  role: "admin" | "user";
+};
+
+type TokenContextType = {
+  token: string | null;
+  decoded: DecodedToken | null;
+};
+
+type ThemeContextType = {
+  isDark: boolean;
+  setIsDark: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+// type MenuProps = {
+//   menu: boolean;
+//   setMenu: React.Dispatch<React.SetStateAction<boolean>>;
+// }
+
+// ---------------- NAV TRANSLATIONS ----------------
+const navTranslations: Navigation = {
+  ge: [
+    { nav: "მთავარი", route: "/" },
+    { nav: "ბარათის შესახებ", route: "/packets" },
+    { nav: "პარტნიორები", route: "/partners" },
+    { nav: "გახდი პარტნიორი", route: "/new-partner" },
+  ],
+  en: [
+    { nav: "Home", route: "/" },
+    { nav: "About Card", route: "/packets" },
+    { nav: "Partners", route: "/partners" },
+    { nav: "Become a Partner", route: "/new-partner" },
+  ],
+};
+
+// ---------------- NAVBAR ----------------
 const Navbar = () => {
-  const { token, decoded } = useToken();
+  const { token, decoded } = useToken() as TokenContextType;
   const navigate = useNavigate();
-  const [profileMenu, setProfileMenu] = useState<boolean>(false);
-  const [menu, setMenu] = useState<boolean>(false);
+  const [profileMenu, setProfileMenu] = useState(false);
+  const [menu, setMenu] = useState(false);
 
-  const theme = useContext(ThemeContext);
-  if (!theme) {
-    throw new Error("ThemeContext.Provider is missing");
-  }
+  const theme = useContext(ThemeContext) as ThemeContextType;
+  if (!theme) throw new Error("ThemeContext.Provider is missing");
   const { isDark, setIsDark } = theme;
+
+  const langCtx = useContext(LanguageContext) as LanguageContextType;
+  if (!langCtx) throw new Error("LanguageContext.Provider is missing");
+  const { language, toggleLanguage } = langCtx;
 
   const handleLogout = () => {
     Cookie.remove("userAuthToken");
@@ -51,18 +88,14 @@ const Navbar = () => {
     window.location.reload();
   };
 
-  const langCtx = useContext(LanguageContext);
-  if (!langCtx) throw new Error("LanguageContext.Provider is missing");
-  const { language, toggleLanguage } = langCtx;
-
-  // const t = translations[language];
+  const navigation = navTranslations[language];
 
   return (
     <>
       <header className={isDark ? "dark" : ""}>
         <nav>
           <div className="logo-image-container">
-            <img width={"50px"} height={"50px"} src={EasyWayLogo} alt="Logo" />
+            <img width="50px" height="50px" src={EasyWayLogo} alt="Logo" />
           </div>
 
           <div
@@ -92,9 +125,6 @@ const Navbar = () => {
               <button
                 onClick={toggleLanguage}
                 style={{
-                  // position: "absolute",
-                  top: "10px",
-                  right: "10px",
                   background: "transparent",
                   border: "1px solid gray",
                   padding: "5px 10px",
@@ -104,21 +134,19 @@ const Navbar = () => {
               >
                 {language === "ge" ? "EN" : "GE"}
               </button>
-              {navigation.map((navItems, index) => (
+              {navigation.map((navItem, index) => (
                 <Link
                   style={{
                     textDecoration: "none",
                     color: isDark ? "#F8FAFC" : "black",
                     transition: "color 0.2s ease-in-out",
                   }}
-                  to={navItems.route}
+                  to={navItem.route}
                   key={index}
                 >
-                  <p>{navItems.nav}</p>
+                  <p>{navItem.nav}</p>
                 </Link>
               ))}
-
-              {/* Conditional rendering for SignIn / SignOut */}
             </div>
             {token ? (
               <div className="userProfile-container">
@@ -133,7 +161,7 @@ const Navbar = () => {
                     className="profile-items-list"
                   >
                     <Link
-                      className="profileItem-p "
+                      className="profileItem-p"
                       to="/UserProfile"
                       style={LinkStyles}
                     >
@@ -145,7 +173,7 @@ const Navbar = () => {
                       </p>
                     </Link>
 
-                    {decoded?.role == "admin" && (
+                    {decoded?.role === "admin" && (
                       <Link
                         className="profileItem-p"
                         to="/addPartner"
@@ -155,12 +183,16 @@ const Navbar = () => {
                           onClick={() => setProfileMenu(!profileMenu)}
                           style={{ color: "black" }}
                         >
-                          პარტნიორის დამატება
+                          {language === "ge"
+                            ? "პარტნიორის დამატება"
+                            : "Add Partner"}
                         </p>
                       </Link>
                     )}
 
-                    <p onClick={handleLogout}>გასვლა</p>
+                    <p onClick={handleLogout}>
+                      {language === "ge" ? "გასვლა" : "Logout"}
+                    </p>
                   </motion.div>
                 )}
               </div>
@@ -173,7 +205,7 @@ const Navbar = () => {
                 }}
                 to="/SignIn"
               >
-                <p>შესვლა</p>
+                <p>{language === "ge" ? "შესვლა" : "Sign In"}</p>
               </Link>
             )}
             <BiMenu
