@@ -1,7 +1,23 @@
 import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import "./CSS/PartnerDetail.css";
+import { ThemeContext } from "../../../Hooks/ThemeContext";
+import { LanguageContext } from "../../../Hooks/LanguageContext";
+
+
+const translations = {
+  ge: {
+    location: "მდებარეობა:",
+    phone: "ტელეფონი:",
+    description: "აღწერა:"
+  },
+  en: {
+    location: "Location:",
+    phone: "Phone:",
+    description: "Description:"
+  }
+}
 
 interface Partner {
   _id: string;
@@ -16,14 +32,23 @@ const PartnerDetail = () => {
   const { id } = useParams();
   const [partner, setPartner] = useState<Partner | null>(null);
   const [selectedIndex, setSelectedIndex] = useState(0);
-//   const [showModal, setShowModal] = useState(false);
+  //   const [showModal, setShowModal] = useState(false);
+
+  const theme = useContext(ThemeContext);
+  if (!theme) {
+    throw new Error("ThemeContext.Provider is missing");
+  }
+  const { isDark } = theme;
 
   useEffect(() => {
     const fetchPartner = async () => {
       try {
-        const res = await axios.post("https://easyway-fmdo.onrender.com/getPartnerById", {
-          id,
-        });
+        const res = await axios.post(
+          "https://easyway-fmdo.onrender.com/getPartnerById",
+          {
+            id,
+          }
+        );
         setPartner(res.data.partner);
       } catch (err) {
         console.error("Failed to load partner detail", err);
@@ -39,8 +64,14 @@ const PartnerDetail = () => {
     setSelectedIndex(index);
   };
 
+const langCtx = useContext(LanguageContext);
+  if (!langCtx) throw new Error("LanguageContext.Provider is missing");
+  const { language } = langCtx;
+
+  const t = translations[language];
+
   return (
-    <div className="partner-detail">
+    <div className={`partner-detail ${isDark ? "dark" : ""}`}>
       <div className="partner-detail-content">
         {/* LEFT SIDE: image and thumbnails */}
         <div className="image-section">
@@ -67,15 +98,37 @@ const PartnerDetail = () => {
 
         {/* RIGHT SIDE: company info */}
         <div className="info-section">
-          <h1>{partner.companyName}</h1>
-          <p>
-            <strong>მდებარეობა:</strong> {partner.location}
+          <h1
+            style={{
+              color: isDark ? "#f8fafc" : "",
+              transition: "color 0.2s ease-in-out",
+            }}
+          >
+            {partner.companyName}
+          </h1>
+          <p
+            style={{
+              color: isDark ? "#f8fafc" : "",
+              transition: "color 0.2s ease-in-out",
+            }}
+          >
+            <strong>{t.location}</strong> {partner.location}
           </p>
-          <p>
-            <strong>ტელეფონი:</strong> {partner.phone}
+          <p
+            style={{
+              color: isDark ? "#f8fafc" : "",
+              transition: "color 0.2s ease-in-out",
+            }}
+          >
+            <strong>{t.phone}</strong> {partner.phone}
           </p>
-          <p>
-            <strong>აღწერა:</strong> {partner.description}
+          <p
+            style={{
+              color: isDark ? "#f8fafc" : "",
+              transition: "color 0.2s ease-in-out",
+            }}
+          >
+            <strong>{t.description}</strong> {partner.description}
           </p>
         </div>
       </div>

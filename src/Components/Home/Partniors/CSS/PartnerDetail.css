@@ -3,9 +3,13 @@
   height: auto;
   max-width: 100%;
   padding: 10px;
-  margin-top: 100px;
+  padding-top: 120px;
   text-align: center;
   gap: 20px;
+}
+
+.partner-detail.dark {
+  background-color: rgb(30,32,36);
 }
 
 .partner-detail-content {

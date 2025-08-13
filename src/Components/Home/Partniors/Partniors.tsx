@@ -3,6 +3,7 @@ import axios from "axios";
 import "./Partniors.css";
 import { useNavigate } from "react-router-dom";
 import { ThemeContext } from "../../../Hooks/ThemeContext";
+import { LanguageContext } from "../../../Hooks/LanguageContext";
 
 interface Partner {
   id: string;
@@ -16,6 +17,19 @@ type RawPartner = {
   images: string[];
   companyName: string;
   description?: string;
+};
+
+const translations = {
+  ge: {
+    title: "ჩვენი პარტნიორები",
+    description:
+      "გახდი ჩვენი პარტნიორების მომხმარებელი და მიიღე ექსკლუზიური ულიმიტო ფასდაკლება.",
+  },
+  en: {
+    title: "Our Partners",
+    description:
+      "Become a user of our partners and get exclusive unlimited discounts.",
+  },
 };
 
 const Partniors: React.FC = () => {
@@ -52,13 +66,18 @@ const Partniors: React.FC = () => {
     fetchPartners();
   }, []);
 
+  const langCtx = useContext(LanguageContext);
+  if (!langCtx) throw new Error("LanguageContext.Provider is missing");
+  const { language } = langCtx;
+
+  const t = translations[language];
+
   return (
     <div className={`partners-section ${isDark ? "dark" : ""}`}>
       <div className="partners-header">
-        <h1 className={`partners-title ${isDark ? "dark" : ""}`}>ჩვენი პარტნიორები</h1>
+        <h1 className={`partners-title ${isDark ? "dark" : ""}`}>{t.title}</h1>
         <p className={`partners-description ${isDark ? "dark" : ""}`}>
-          გახდი ჩვენი პარტნიორების მომხმარებელი და მიიღე ექსკლუზიური ულიმიტო
-          ფასდაკლება.
+          {t.description}
         </p>
       </div>
 
@@ -76,8 +95,12 @@ const Partniors: React.FC = () => {
               className="partner-logo"
             />
             <div className="partner-info">
-              <p className={`partner-name ${isDark ? "dark" : ""}`}>{partner.companyName}</p>
-              <p className={`partner-description ${isDark ? "dark" : ""}`}>{partner.description}</p>
+              <p className={`partner-name ${isDark ? "dark" : ""}`}>
+                {partner.companyName}
+              </p>
+              <p className={`partner-description ${isDark ? "dark" : ""}`}>
+                {partner.description}
+              </p>
             </div>
           </div>
         ))}
