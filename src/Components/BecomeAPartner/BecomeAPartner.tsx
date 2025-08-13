@@ -1,7 +1,25 @@
 import "./CSS/BecomeAPartner.css";
 import { useMediaQuery } from "react-responsive";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import errorIcon from "/img/icons8-error-30.png";
+import { LanguageContext } from "../../Hooks/LanguageContext";
+
+const translations = {
+  ge: {
+    text: "გონივრული გადაწყვეტილება = მეტი მომხმარებელი",
+    companyName: "კომპანიის დასახელება",
+    contact: "საკონტაქტო",
+    description: "მოკლე აღწერილობა",
+    send: "გაგზავნა"
+  },
+  en: {
+    text: "Smart decision = more customers",
+    companyName: "Company Name",
+    contact: "Contact",
+    description: "Short Description",
+    send: "Send"
+  }
+}
 
 export default function BecomeAPartner() {
   const [error, setError] = useState("");
@@ -58,6 +76,12 @@ export default function BecomeAPartner() {
   const line = isTabletOrMobile ? 30 : 48;
   const secondLine = 11;
 
+const langCtx = useContext(LanguageContext);
+  if (!langCtx) throw new Error("LanguageContext.Provider is missing");
+  const { language } = langCtx;
+
+  const t = translations[language];
+
   return (
     <div className="becomeAPartner">
       <h1 className="h1">Contact us</h1>
@@ -91,7 +115,7 @@ export default function BecomeAPartner() {
             <div>
               {" "}
               <h1 className="miniText">
-                გონივრული გადაწყვეტილება = მეტი მომხმარებელი
+                {t.text}
               </h1>
             </div>
           </div>
@@ -101,7 +125,7 @@ export default function BecomeAPartner() {
             <input
               type="text"
               className={`${error ? "redLine" : ""} infoInput inpu`}
-              placeholder="კომპანიის დასახელება"
+              placeholder={t.companyName}
             />
             <span className="star">*</span>
           </div>
@@ -116,7 +140,7 @@ export default function BecomeAPartner() {
             <input
               type="text"
               className={`${error ? "redLine" : ""} infoInput inpu`}
-              placeholder="საკონტაქტო"
+              placeholder={t.contact}
             />
             <span className="star">*</span>
           </div>
@@ -127,11 +151,11 @@ export default function BecomeAPartner() {
             </p>
           )}
           <textarea
-            placeholder="მოკლე აღწერილობა"
+            placeholder={t.description}
             className="infodescription inpu"
           />
           <button onClick={handleSubmit} className="send">
-            გაგზავნა
+            {t.send}
           </button>
         </div>
       </div>
