@@ -2,8 +2,7 @@ import { useContext } from "react";
 import CardVersion from "./CardVersion"; // adjust path if needed
 import "./CSS/about.css";
 import { LanguageContext } from "../../Hooks/LanguageContext";
-import { title } from "framer-motion/client";
-import { SiX } from "react-icons/si";
+
 
 const translations = {
   ge: {

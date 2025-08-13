@@ -5,6 +5,34 @@ import LinkStyles from "../LinkStyles";
 import { BiLogoGmail } from "react-icons/bi";
 import { useContext } from "react";
 import { ThemeContext } from "../../Hooks/ThemeContext";
+import { LanguageContext } from "../../Hooks/LanguageContext";
+
+const translations = {
+  ge: {
+    company: "კომპანია",
+    blog: "ბლოგი",
+    about: "ჩვენს შესახებ",
+    services: "ჩვენი სერვისები",
+    help: "დახმარება",
+    questions: "ხშირად დასმული კითხვები",
+    contact: "დაგვიკავშირდით",
+    terms: "წესები და პირობები",
+    privacy: "კონფიდენციალურობა და პოლიტიკა",
+    network: "სოციალური ქსელები"
+  },
+  en: {
+    company: "Company",
+    blog: "Blog",
+    about: "About Us",
+    services: "Our Services",
+    help: "Help",
+    questions: "Frequently Asked Questions",
+    contact: "Contact Us",
+    terms: "Terms and Conditions",
+    privacy: "Privacy Policy",
+    network: "Social Media"
+  }
+}
 
 const Footer = () => {
   const theme = useContext(ThemeContext);
@@ -13,57 +41,63 @@ const Footer = () => {
   }
   const { isDark } = theme;
 
+ const langCtx = useContext(LanguageContext);
+  if (!langCtx) throw new Error("LanguageContext.Provider is missing");
+  const { language } = langCtx;
+
+  const t = translations[language];
+
   return (
     <footer className={`footer ${isDark ? "dark" : ""}`}>
       <div className="footer-container">
         <div className={`row ${isDark ? "dark" : ""}`}>
           <div className="footerCol">
-            <h4 className={isDark ? "dark" : ""}>კომპანია</h4>
+            <h4 className={isDark ? "dark" : ""}>{t.company}</h4>
             <ul>
               <li>
                 <Link style={LinkStyles} to="/TechWorks">
-                  <p>ბლოგი</p>
+                  <p>{t.blog}</p>
                 </Link>
               </li>
               <li>
                 <Link style={LinkStyles} to="/TechWorks">
-                  <p>ჩვენს შესახებ</p>
+                  <p>{t.about}</p>
                 </Link>
               </li>
               <li>
                 <Link style={LinkStyles} to="/packets">
-                  <p>ჩვენი სერვისები</p>
+                  <p>{t.services}</p>
                 </Link>
               </li>
             </ul>
           </div>
           <div className="footerCol">
-            <h4>დახმარება</h4>
+            <h4>{t.help}</h4>
             <ul>
               <li>
                 <Link style={LinkStyles} to="/TechWorks">
-                  <p>ხშირად დასმული კითხვები</p>
+                  <p>{t.questions}</p>
                 </Link>
               </li>
               <li>
                 <Link style={LinkStyles} to="/TechWorks">
-                  <p>დაგვიკავშირდით</p>
+                  <p>{t.contact}</p>
                 </Link>
               </li>
               <li>
                 <Link style={LinkStyles} to="/Terms&Conditions">
-                  <p>წესები და პირობები</p>
+                  <p>{t.terms}</p>
                 </Link>
               </li>
               <li>
                 <Link style={LinkStyles} to="/Privacy&Policy">
-                  <p>კონფიდენციალურობა და პოლიტიკა</p>
+                  <p>{t.privacy}</p>
                 </Link>
               </li>
             </ul>
           </div>
           <div style={{ width: "auto" }} className="footerCol">
-            <h4>სოციალური ქსელები</h4>
+            <h4>{t.network}</h4>
             <div className="socialLinks">
               <a
                 target="_blank"
