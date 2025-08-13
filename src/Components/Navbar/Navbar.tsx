@@ -12,6 +12,7 @@ import { BiMenu } from "react-icons/bi";
 import { IoMdMoon, IoIosSunny } from "react-icons/io";
 import { ThemeContext } from "../../Hooks/ThemeContext";
 import Menu from "./Menu";
+import { LanguageContext } from "../../Hooks/LanguageContext";
 
 const navigation: navigation[] = [
   {
@@ -50,6 +51,12 @@ const Navbar = () => {
     window.location.reload();
   };
 
+  const langCtx = useContext(LanguageContext);
+  if (!langCtx) throw new Error("LanguageContext.Provider is missing");
+  const { language, toggleLanguage } = langCtx;
+
+  // const t = translations[language];
+
   return (
     <>
       <header className={isDark ? "dark" : ""}>
@@ -81,6 +88,21 @@ const Navbar = () => {
                 }}
               >
                 {isDark ? <IoMdMoon /> : <IoIosSunny />}
+              </button>
+              <button
+                onClick={toggleLanguage}
+                style={{
+                  // position: "absolute",
+                  top: "10px",
+                  right: "10px",
+                  background: "transparent",
+                  border: "1px solid gray",
+                  padding: "5px 10px",
+                  cursor: "pointer",
+                  color: isDark ? "#f8fafc" : "#000",
+                }}
+              >
+                {language === "ge" ? "EN" : "GE"}
               </button>
               {navigation.map((navItems, index) => (
                 <Link

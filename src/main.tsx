@@ -6,6 +6,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { PacketProvider } from "./Hooks/PacketContext.tsx";
 import { TokenProvider } from "./Hooks/TokenContext.tsx";
 import { ThemeContextComponent } from "./Hooks/ThemeContext.tsx";
+import { LanguageProvider } from "./Hooks/LanguageContext.tsx";
 const SignUp = React.lazy(() => import("./Components/Auth/SignUp.tsx"));
 const Policy = React.lazy(() => import("./Components/Policy/Policy.tsx"));
 const Home = React.lazy(() => import("./Components/Home/Home.tsx"));
@@ -104,11 +105,13 @@ const router = createBrowserRouter([
 createRoot(document.getElementById("root")!).render(
   <Suspense fallback={<></>}>
     <ThemeContextComponent>
-      <TokenProvider>
-        <PacketProvider>
-          <RouterProvider router={router} />
-        </PacketProvider>
-      </TokenProvider>
+      <LanguageProvider>
+        <TokenProvider>
+          <PacketProvider>
+            <RouterProvider router={router} />
+          </PacketProvider>
+        </TokenProvider>
+      </LanguageProvider>
     </ThemeContextComponent>
   </Suspense>
 );

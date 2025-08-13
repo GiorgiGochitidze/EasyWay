@@ -5,6 +5,7 @@ import LinkStyles from "../LinkStyles";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import phoneVerified from "../../assets/smartPhoneVerified.jpg";
 import { ThemeContext } from "../../Hooks/ThemeContext";
+import { LanguageContext } from "../../Hooks/LanguageContext";
 
 type FormDataTypes = {
   userName: string;
@@ -18,6 +19,32 @@ type UserAuthTypes = {
   msg: string;
 };
 
+// Language dictionary
+const translations = {
+  ge: {
+    signIn: "შესვლა",
+    signUp: "რეგისტრაცია",
+    name: "სახელი",
+    email: "ემაილი",
+    password: "პაროლი",
+    noAccount: "არ გაქვს აკაუნტი?",
+    registerHere: "დარეგისტრირდი",
+    haveAccount: "გაქვს უკვე აკაუნტი?",
+    loginHere: "შესვლა",
+  },
+  en: {
+    signIn: "Sign In",
+    signUp: "Sign Up",
+    name: "Name",
+    email: "Email",
+    password: "Password",
+    noAccount: "Don't have an account?",
+    registerHere: "Register",
+    haveAccount: "Already have an account?",
+    loginHere: "Login",
+  },
+};
+
 const Form = ({ authType, handleAuth, msg }: UserAuthTypes) => {
   const [userName, setUserName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
@@ -25,24 +52,29 @@ const Form = ({ authType, handleAuth, msg }: UserAuthTypes) => {
   const [showPass, setShowPass] = useState<boolean>(false);
 
   const theme = useContext(ThemeContext);
-  if (!theme) {
-    throw new Error("ThemeContext.Provider is missing");
-  }
+  if (!theme) throw new Error("ThemeContext.Provider is missing");
   const { isDark } = theme;
+
+  const langCtx = useContext(LanguageContext);
+  if (!langCtx) throw new Error("LanguageContext.Provider is missing");
+  const { language } = langCtx;
+
+  const t = translations[language];
 
   return (
     <div className={`form-container ${isDark ? "dark" : ""}`}>
       <img width={"50%"} src={phoneVerified} alt="verified phone image" />
       <div className="form-part">
         <h1 className={isDark ? "dark" : ""}>
-          {authType == "SignIn" ? "შესვლა" : "რეგისტრაცია"}
+          {authType === "SignIn" ? t.signIn : t.signUp}
         </h1>
-        {authType == "SignUp" && (
+
+        {authType === "SignUp" && (
           <label htmlFor="userName">
             <input
               value={userName}
               onChange={(e) => setUserName(e.target.value)}
-              placeholder="სახელი"
+              placeholder={t.name}
               type="text"
               id="userName"
               name="userName"
@@ -50,25 +82,26 @@ const Form = ({ authType, handleAuth, msg }: UserAuthTypes) => {
             />
           </label>
         )}
+
         <label htmlFor="email">
           <input
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            placeholder="ემაილი"
+            placeholder={t.email}
             type="text"
             id="email"
             name="email"
             className={isDark ? "dark" : ""}
           />
         </label>
+
         <label style={{ position: "relative" }} htmlFor="password">
-          {showPass && (
+          {showPass ? (
             <FaRegEye
               className={`eye-icon ${isDark ? "dark" : ""}`}
               onClick={() => setShowPass(!showPass)}
             />
-          )}
-          {!showPass && (
+          ) : (
             <FaRegEyeSlash
               className={`eye-icon ${isDark ? "dark" : ""}`}
               onClick={() => setShowPass(!showPass)}
@@ -77,7 +110,7 @@ const Form = ({ authType, handleAuth, msg }: UserAuthTypes) => {
           <input
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            placeholder="პაროლი"
+            placeholder={t.password}
             type={showPass ? "text" : "password"}
             id="password"
             name="password"
@@ -85,18 +118,20 @@ const Form = ({ authType, handleAuth, msg }: UserAuthTypes) => {
             style={{ paddingLeft: "10px", paddingRight: "30px" }}
           />
         </label>
+
         {msg && <p>{msg}</p>}
         <button onClick={() => handleAuth({ userName, email, password })}>
-          {authType == "SignIn" ? "შესვლა" : "რეგისტრაცია"}
+          {authType === "SignIn" ? t.signIn : t.signUp}
         </button>
-        {authType == "SignIn" ? (
+
+        {authType === "SignIn" ? (
           <p
             style={{
               color: isDark ? "#f8fafc" : "",
               transition: "color 0.2s ease-in-out",
             }}
           >
-            არ გაქვს აკაუნტი?{" "}
+            {t.noAccount}{" "}
             <Link
               style={{
                 ...LinkStyles,
@@ -105,7 +140,7 @@ const Form = ({ authType, handleAuth, msg }: UserAuthTypes) => {
               }}
               to="/SignUp"
             >
-              დარეგისტრირდი
+              {t.registerHere}
             </Link>
           </p>
         ) : (
@@ -115,9 +150,9 @@ const Form = ({ authType, handleAuth, msg }: UserAuthTypes) => {
               transition: "color 0.2s ease-in-out",
             }}
           >
-            გაქვს უკვე აკაუნტი?{" "}
+            {t.haveAccount}{" "}
             <Link style={LinkStyles} to="/SignIn">
-              შესვლა
+              {t.loginHere}
             </Link>
           </p>
         )}
